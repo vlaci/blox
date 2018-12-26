@@ -1,0 +1,24 @@
+From d54f62b0caa99d885e179c680d256bb1c226fa40 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?L=C3=A1szl=C3=B3=20Vask=C3=B3?=
+ <laszlo.vasko@outlook.com>
+Date: Mon, 24 Dec 2018 10:45:40 +0100
+Subject: [PATCH] tags: allow setting icons from tag definition
+
+---
+ init.lua | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/init.lua b/init.lua
+index e2c5d11..094c6ee 100644
+--- a/init.lua
++++ b/init.lua
+@@ -94,6 +94,7 @@ function sharedtags.new(def)
+         tags[i] = awful.tag.add(t.name or i, {
+             screen = (t.screen and t.screen <= capi.screen.count()) and t.screen or capi.screen.primary,
+             layout = t.layout,
++            icon = t.icon,
+             sharedtagindex = i
+         })
+ 
+-- 
+2.18.1
