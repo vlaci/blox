@@ -1,0 +1,9 @@
+{
+  "name": "vscode-1.30.0",
+  "version": "1.30.0",
+  "fetch": {
+    "name": "VSCode_1.30.0_linux-x64.tar.gz",
+    "url": "https://vscode-update.azurewebsites.net/1.30.0/linux-x64/stable",
+    "sha256": "1zbnyff0q15xkvkrs14rfgyn6xb9v0xivcnbl8yckl71s45vb2l1"
+  }
+}

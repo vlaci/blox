@@ -1,0 +1,7 @@
+{
+  "name": "vscode-${version}",
+  "fetch": {
+    "name": "VSCode_${version}_linux-x64.tar.gz",
+    "url": "https://vscode-update.azurewebsites.net/${version}/linux-x64/stable"
+  }
+}
