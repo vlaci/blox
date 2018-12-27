@@ -1,4 +1,4 @@
-{ config, lib, nixosConfig, bloxpkgs, ... }: with lib;
+{ config, lib, nixosConfig, pkgs, ... }: with lib;
 
 let
   cfg = config.blox.features.workstation;
@@ -11,8 +11,8 @@ in {
   };
 
   config = mkIf (cfg.enable && cfg.compositor.enable) {
-    home.packages = with bloxpkgs; [
-      compton-tryone
+    home.packages = with pkgs; [
+      bloxpkgs.compton-tryone
     ];
     home.file.".config/compton.conf".source = ./compton.conf;
   };

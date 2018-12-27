@@ -1,4 +1,4 @@
-{ pkgs, bloxpkgs, ... }:
+{ pkgs, ... }:
 
 {
   home.file = {
@@ -8,10 +8,10 @@
   xsession = {
     enable = true;
     scriptPath = ".xsession-hm";
-    windowManager.awesome = let
-      modules = pkgs.callPackage ./extensions.nix { }; in {
+    windowManager.awesome = with pkgs; let
+      modules = callPackage ./extensions.nix { }; in {
         enable = true;
-        package = bloxpkgs.awesome;
+        package = bloxpkgs.latest.awesome;
         luaModules = [ modules.lain modules.sharedtags ];
     };
   };

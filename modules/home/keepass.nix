@@ -1,4 +1,4 @@
-{ config, lib, pkgs, bloxpkgs, ... }: with lib;
+{ config, lib, pkgs, ... }: with lib;
 
 let
   cfg = config.blox.features.keepass;
@@ -7,17 +7,17 @@ in {
   options.blox.features.keepass.enable = mkEnableOption "KeePass with plugins";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; with bloxpkgs; [
+    home.packages = (with pkgs.bloxpkgs.unstable; [
       (keepass.override {
         plugins = [
-          unstable.keepass-keeagent
+          keepass-keeagent
         ] ++ optionals (isEnabled "workstation") [
-          unstable.keepass-keepassrpc
+          keepass-keepassrpc
         ];
       })
-    ] ++ optionals (isEnabled "workstation") [
+    ]) ++ optionals (isEnabled "workstation") (with pkgs; [
       xdotool
-    ];
+    ]);
 
     home.file = mkIf (isEnabled "zsh") {
     ".config/zsh/conf.d/10-keeagent-env.rc".text = ''

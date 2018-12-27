@@ -1,4 +1,4 @@
-{ lib, config, nixosConfig, pkgs, bloxpkgs, ... }: with lib;
+{ lib, config, nixosConfig, pkgs, ... }: with lib;
 
 let
   cfg = config.blox.features.workstation;
@@ -11,9 +11,8 @@ in {
   ];
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; with bloxpkgs; [
+    home.packages = (with pkgs; [
       evince
-      mozilla.latest.firefox-bin
       gimp
       kitty
       libreoffice-fresh
@@ -28,9 +27,11 @@ in {
       xsel
 
       arc-theme
-      material-design-icons
       paper-icon-theme
-    ];
+    ]) ++ (with pkgs.bloxpkgs; [
+      mozilla.latest.firefox-bin
+       material-design-icons
+    ]);
     home.file = {
       ".config/kitty/kitty.conf".source = ./kitty.conf;
       ".config/rofi/config.rasi".source = ./config.rasi;

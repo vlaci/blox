@@ -1,4 +1,4 @@
-{ config, lib, pkgs, bloxpkgs, ... }: with lib;
+{ config, lib, pkgs, ... }: with lib;
 
 let
   cfg = config.blox.features.development;
@@ -42,7 +42,7 @@ in {
   };
 
   config = {
-    home.packages = with pkgs; with bloxpkgs; optionals cfg.c.enable [
+    home.packages = with pkgs; optionals cfg.c.enable [
       gcc
       lldb
     ] ++ optionals cfg.python.enable [
@@ -67,7 +67,7 @@ in {
       ] ++ optionals config.blox.features.workstation.enable [
         diffuse
         meld
-        vscode
+        bloxpkgs.latest.vscode
       ] ++ optionals config.blox.features.zsh.enable [
         direnv
       ]
@@ -97,13 +97,17 @@ in {
           \${optionalString cfg.rust.enable " 'rust': ['rls'],"}
           \}
         '' + (builtins.readFile ./init.vim);
-        packages.myVimPackage = with pkgs.vimPlugins; with bloxpkgs.vimPlugins; {
-          start = [
-            neomake
+        packages.myVimPackage = {
+          start = (with pkgs.bloxpkgs.vimPlugins; [
             tender
             yarp
             ncm2
             emmet
+            which-key
+          ]) ++ (with pkgs.bloxpkgs.unstable.vimPlugins; [
+            LanguageClient-neovim
+          ]) ++ (with pkgs.vimPlugins; [
+            neomake
             vim-nix
             vim-airline
             vim-airline-themes
@@ -111,9 +115,7 @@ in {
             fzf-vim fzfWrapper
             surround
             fugitive
-            bloxpkgs.unstable.vimPlugins.LanguageClient-neovim
-            which-key
-          ];
+          ]);
         };
       };
     };

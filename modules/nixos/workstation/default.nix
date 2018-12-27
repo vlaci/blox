@@ -3,7 +3,7 @@
 
 let
   feat = config.blox.features;
-  bloxpkgs = import ../../../pkgs { inherit config pkgs; };
+  bloxpkgs = import ../../../pkgs { inherit pkgs; };
 in {
   imports = [
     ./cursor.nix

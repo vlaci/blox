@@ -175,7 +175,6 @@ modules, namely:
 
 - *user*: The current user who the configuration is generated for\
 - *nixosConfig*: The global nixos configuration\
-- *bloxpkgs*: Additional packages defined in the **<pkgs/>** directory
 
 Note that all `features` set in the global configuration is inherited
 by home manager and can be explicitly disabled.
