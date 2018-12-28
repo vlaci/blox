@@ -11,5 +11,6 @@
     ./shell.nix
     ./sshd.nix
     ./users.nix
+    ./overlays-compat.nix
   ];
 }
