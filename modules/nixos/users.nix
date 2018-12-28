@@ -10,7 +10,7 @@ let
 in {
   options.blox.users = {
     defaultGroups = mkOption {
-      description = "Groups added by features";
+      description = "Groups added by profiles";
       internal = true;
       visible = false;
       type = with types; listOf str;

@@ -30,7 +30,7 @@ in
     };
   };
   config.i18n = mkDefault cfg.${config.blox.i18n.lang};
-  config.services.xserver = mkIf config.blox.features.workstation.enable {
+  config.services.xserver = mkIf config.blox.profiles.workstation.enable {
     layout = config.blox.i18n.xlayout;
     xkbOptions = mkDefault "grp:lalt_lshift_toggle, compose:rctrl-altgr";
   };

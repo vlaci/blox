@@ -1,9 +1,9 @@
 { config, lib, nixosConfig, pkgs, ... }: with lib;
 
 let
-  cfg = config.blox.features.workstation;
+  cfg = config.blox.profiles.workstation;
 in {
-  options.blox.features.workstation.compositor.enable = mkOption {
+  options.blox.profiles.workstation.compositor.enable = mkOption {
     description = "Whether to enable compositing.";
     default = !(hasAttr "vm" nixosConfig.system.build);  # Disable in VMs by default
     defaultText = "!nixosConfig.system.build.vm";

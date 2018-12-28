@@ -1,15 +1,15 @@
 { config, lib, pkgs, ... }: with lib;
 
 let
-  cfg = config.blox.features.development;
+  cfg = config.blox.profiles.development;
   mkEnableOption' = name: default: mkOption {
     description = "Whether to enable ${name}.";
     type = types.bool;
-    defaultText = "blox.features.development.enable";
+    defaultText = "blox.profiles.development.enable";
     inherit default;
   };
 in {
-  options.blox.features.development = mkOption {
+  options.blox.profiles.development = mkOption {
     description = ''
       Development tools related options.
     '';
@@ -64,23 +64,23 @@ in {
         jq
         fzf
         ripgrep
-      ] ++ optionals config.blox.features.workstation.enable [
+      ] ++ optionals config.blox.profiles.workstation.enable [
         diffuse
         meld
         bloxpkgs.latest.vscode
-      ] ++ optionals config.blox.features.zsh.enable [
+      ] ++ optionals config.blox.profiles.zsh.enable [
         direnv
       ]
     );
 
-    home.file = optionalAttrs config.blox.features.zsh.enable ({
+    home.file = optionalAttrs config.blox.profiles.zsh.enable ({
       ".config/zsh/conf.d/10-direnv.rc".text = ''
         eval "$(direnv hook zsh)"
       '';
        ".config/zsh/conf.d/12-fzf.rc".text = ''
         source ${pkgs.fzf}/share/fzf/completion.zsh
        '';
-      } // optionalAttrs config.blox.features.workstation.enable {
+      } // optionalAttrs config.blox.profiles.workstation.enable {
         ".config/zsh/conf.d/10-vscode-env.rc".text = ''
           if [[ ''${TERM_PROGRAM-} == vscode ]]; then
               export EDITOR="code -r --wait"

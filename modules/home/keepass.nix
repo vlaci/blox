@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }: with lib;
 
 let
-  cfg = config.blox.features.keepass;
-  isEnabled = feature: config.blox.features.${feature}.enable;
+  cfg = config.blox.profiles.keepass;
+  isEnabled = profile: config.blox.profiles.${profile}.enable;
 in {
-  options.blox.features.keepass.enable = mkEnableOption "KeePass with plugins";
+  options.blox.profiles.keepass.enable = mkEnableOption "KeePass with plugins";
 
   config = mkIf cfg.enable {
     home.packages = (with pkgs.bloxpkgs.unstable; [

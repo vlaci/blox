@@ -17,7 +17,7 @@
       - *user*: The current user who the configuration is generated for\
       - *nixosConfig*: The global nixos configuration\
 
-      Note that all `features` set in the global configuration is inherited
+      Note that all `profiles` set in the global configuration is inherited
       by home manager and can be explicitly disabled.
     '';
     type = mkOptionType {
@@ -31,7 +31,7 @@
         blox.home-manager.config =
           { pkgs, ... }:
           {
-            blox.features.keepass.enable = true;
+            blox.profiles.keepass.enable = true;
 
             home.packages = with pkgs; [
               rustup
@@ -53,11 +53,11 @@
         imports = nixosConfig.blox.home-manager.config ++ [
           ../home
         ];
-        blox.features = genAttrs (
+        blox.profiles = genAttrs (
           intersectLists
-            (attrNames options.blox.features)
-            (attrNames nixosConfig.blox.features)
-          ) (name: nixosConfig.blox.features.${name});
+            (attrNames options.blox.profiles)
+            (attrNames nixosConfig.blox.profiles)
+          ) (name: nixosConfig.blox.profiles.${name});
       } // user.home-config);
     hmUsers = filterAttrs (name: { isNormalUser, ...}: isNormalUser) config.users.users;
   in {

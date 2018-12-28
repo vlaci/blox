@@ -14,7 +14,7 @@ let
         };
         text = mkOption {
           apply = svc:
-            if parentConfig.blox.features.betterU2f.enable then
+            if parentConfig.blox.profiles.betterU2f.enable then
               builtins.readFile (
                 pkgs.runCommand "pam-${name}-u2f"
                   { inherit svc; passAsFile = [ "svc" ]; } ''
@@ -33,7 +33,7 @@ let
 in
   {
     options = {
-      blox.features.betterU2f.enable = mkOption {
+      blox.profiles.betterU2f.enable = mkOption {
         description = "U2F PAM module to be used as a second factor and passing arguments to pam_u2f.so";
         default = false;
         type = types.bool;

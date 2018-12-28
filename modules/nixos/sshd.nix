@@ -1,9 +1,9 @@
 { config, lib, ... }: with lib;
 
 let
-  cfg = config.blox.features.sshd;
+  cfg = config.blox.profiles.sshd;
 in {
-  options.blox.features.sshd.enable = mkEnableOption "Use sshd with default configuration";
+  options.blox.profiles.sshd.enable = mkEnableOption "Use sshd with default configuration";
   config = mkIf cfg.enable {
     services.openssh = mkDefault {
       enable = true;

@@ -36,7 +36,7 @@ let
         {
           imports = [ ../modules/nixos ];
           blox = {
-            features = {
+            profiles = {
               networkmanager.enable = true;
               sshd.enable = true;
               docker.enable = true;

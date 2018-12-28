@@ -1,9 +1,9 @@
  { config, lib, pkgs, ... }: with lib;
 
 let
-  cfg = config.blox.features.docker;
+  cfg = config.blox.profiles.docker;
 in {
-  options.blox.features.docker.enable = mkEnableOption "docker";
+  options.blox.profiles.docker.enable = mkEnableOption "docker";
 
   config = mkIf cfg.enable {
     virtualisation.docker = {

@@ -12,9 +12,9 @@ The following section lists all custom options available in this configuration.
 
 ## Options valid in both nixos and home-manager configurations:
 
-### blox.features.development.enable
+### blox.profiles.development.enable
 
-Whether to enable placeholder to enable all development features in home-manager environment.
+Whether to enable placeholder to enable all development profiles in home-manager environment.
 
 *Type:* `boolean`
 
@@ -28,7 +28,7 @@ Whether to enable placeholder to enable all development features in home-manager
 
 *Valid in:* nixos, home-manager
 
-### blox.features.workstation.enable
+### blox.profiles.workstation.enable
 
 Whether to enable .
 
@@ -44,7 +44,7 @@ Whether to enable .
 
 *Valid in:* nixos, home-manager
 
-### blox.features.zsh.enable
+### blox.profiles.zsh.enable
 
 Whether to enable ZSH with sane (grml) defaults.
 
@@ -62,108 +62,6 @@ Whether to enable ZSH with sane (grml) defaults.
 
 ## Options valid in only nixos configurations:
 
-### blox.features.betterU2f.enable
-
-U2F PAM module to be used as a second factor and passing arguments to pam_u2f.so
-
-*Type:* `boolean`
-
-
-*Default:* `false`
-
-*Example:*
-
-```nix
-{
-  hardware.u2f.enable = true;
-  security.pam.enableU2F = true;
-  security.pam.use2Factor = true;
-  security.pam.u2fModuleArgs = "cue";
-  security.pam.services."sudo".use2Factor = false;
-}
-```
-
-*Declared by:*
-
-> **[`<modules/nixos/pam-u2f/default.nix>`](../modules/nixos/pam-u2f/default.nix)**  
-
-*Valid in:* nixos
-
-### blox.features.docker.enable
-
-Whether to enable docker.
-
-*Type:* `boolean`
-
-
-*Default:* `false`
-
-*Declared by:*
-
-> **[`<modules/nixos/virtualisation/docker.nix>`](../modules/nixos/virtualisation/docker.nix)**  
-
-*Valid in:* nixos
-
-### blox.features.libvirt.enable
-
-Whether to enable libvirt.
-
-*Type:* `boolean`
-
-
-*Default:* `false`
-
-*Declared by:*
-
-> **[`<modules/nixos/virtualisation/libvirt.nix>`](../modules/nixos/virtualisation/libvirt.nix)**  
-
-*Valid in:* nixos
-
-### blox.features.networkmanager.enable
-
-Whether to enable Networkmanager with sane defaults.
-
-*Type:* `boolean`
-
-
-*Default:* `false`
-
-*Declared by:*
-
-> **[`<modules/nixos/networkmanager.nix>`](../modules/nixos/networkmanager.nix)**  
-
-*Valid in:* nixos
-
-### blox.features.sshd.enable
-
-Whether to enable Use sshd with default configuration.
-
-*Type:* `boolean`
-
-
-*Default:* `false`
-
-*Declared by:*
-
-> **[`<modules/nixos/sshd.nix>`](../modules/nixos/sshd.nix)**  
-
-*Valid in:* nixos
-
-### blox.features.tmux.enable
-
-Whether to enable tmux with sane default configuration.
-
-*Type:* `boolean`
-
-
-*Default:* `false`
-
-*Declared by:*
-
-> **[`<modules/nixos/shell.nix>`](../modules/nixos/shell.nix)**  
-
-*Valid in:* nixos
-
 ### blox.home-manager.config
 
 Global Home Manager configuration.
@@ -176,7 +74,7 @@ modules, namely:
 - *user*: The current user who the configuration is generated for\
 - *nixosConfig*: The global nixos configuration\
 
-Note that all `features` set in the global configuration is inherited
+Note that all `profiles` set in the global configuration is inherited
 by home manager and can be explicitly disabled.
 
 
@@ -192,7 +90,7 @@ by home manager and can be explicitly disabled.
   blox.home-manager.config =
     { pkgs, ... }:
     {
-      blox.features.keepass.enable = true;
+      blox.profiles.keepass.enable = true;
 
       home.packages = with pkgs; [
         rustup
@@ -238,6 +136,108 @@ enabled xlayout
 *Declared by:*
 
 > **[`<modules/nixos/i18n.nix>`](../modules/nixos/i18n.nix)**  
+
+*Valid in:* nixos
+
+### blox.profiles.betterU2f.enable
+
+U2F PAM module to be used as a second factor and passing arguments to pam_u2f.so
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Example:*
+
+```nix
+{
+  hardware.u2f.enable = true;
+  security.pam.enableU2F = true;
+  security.pam.use2Factor = true;
+  security.pam.u2fModuleArgs = "cue";
+  security.pam.services."sudo".use2Factor = false;
+}
+```
+
+*Declared by:*
+
+> **[`<modules/nixos/pam-u2f/default.nix>`](../modules/nixos/pam-u2f/default.nix)**  
+
+*Valid in:* nixos
+
+### blox.profiles.docker.enable
+
+Whether to enable docker.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/nixos/virtualisation/docker.nix>`](../modules/nixos/virtualisation/docker.nix)**  
+
+*Valid in:* nixos
+
+### blox.profiles.libvirt.enable
+
+Whether to enable libvirt.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/nixos/virtualisation/libvirt.nix>`](../modules/nixos/virtualisation/libvirt.nix)**  
+
+*Valid in:* nixos
+
+### blox.profiles.networkmanager.enable
+
+Whether to enable Networkmanager with sane defaults.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/nixos/networkmanager.nix>`](../modules/nixos/networkmanager.nix)**  
+
+*Valid in:* nixos
+
+### blox.profiles.sshd.enable
+
+Whether to enable Use sshd with default configuration.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/nixos/sshd.nix>`](../modules/nixos/sshd.nix)**  
+
+*Valid in:* nixos
+
+### blox.profiles.tmux.enable
+
+Whether to enable tmux with sane default configuration.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/nixos/shell.nix>`](../modules/nixos/shell.nix)**  
 
 *Valid in:* nixos
 
@@ -406,7 +406,7 @@ Whether to enable sudo access.
 
 ## Options valid in only home-manager configurations:
 
-### blox.features.development
+### blox.profiles.development
 
 Development tools related options.
 
@@ -441,14 +441,14 @@ Development tools related options.
 
 *Valid in:* home-manager
 
-### blox.features.development.c.enable
+### blox.profiles.development.c.enable
 
 Whether to enable C/C++ tooling.
 
 *Type:* `boolean`
 
 
-*Default:* `"blox.features.development.enable"`
+*Default:* `"blox.profiles.development.enable"`
 
 *Declared by:*
 
@@ -456,14 +456,14 @@ Whether to enable C/C++ tooling.
 
 *Valid in:* home-manager
 
-### blox.features.development.python.enable
+### blox.profiles.development.python.enable
 
 Whether to enable Python (2 and 3) tooling.
 
 *Type:* `boolean`
 
 
-*Default:* `"blox.features.development.enable"`
+*Default:* `"blox.profiles.development.enable"`
 
 *Declared by:*
 
@@ -471,14 +471,14 @@ Whether to enable Python (2 and 3) tooling.
 
 *Valid in:* home-manager
 
-### blox.features.development.rust.enable
+### blox.profiles.development.rust.enable
 
 Whether to enable Rust tooling.
 
 *Type:* `boolean`
 
 
-*Default:* `"blox.features.development.enable"`
+*Default:* `"blox.profiles.development.enable"`
 
 *Declared by:*
 
@@ -486,14 +486,14 @@ Whether to enable Rust tooling.
 
 *Valid in:* home-manager
 
-### blox.features.development.tools.enable
+### blox.profiles.development.tools.enable
 
 Whether to enable miscellaneous tools.
 
 *Type:* `boolean`
 
 
-*Default:* `"blox.features.development.enable"`
+*Default:* `"blox.profiles.development.enable"`
 
 *Declared by:*
 
@@ -501,7 +501,7 @@ Whether to enable miscellaneous tools.
 
 *Valid in:* home-manager
 
-### blox.features.keepass.enable
+### blox.profiles.keepass.enable
 
 Whether to enable KeePass with plugins.
 
@@ -516,7 +516,7 @@ Whether to enable KeePass with plugins.
 
 *Valid in:* home-manager
 
-### blox.features.workstation.compositor.enable
+### blox.profiles.workstation.compositor.enable
 
 Whether to enable compositing.
 

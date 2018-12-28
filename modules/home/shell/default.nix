@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }: with lib;
 
 let
-  cfg = config.blox.features.zsh;
+  cfg = config.blox.profiles.zsh;
 in {
-  options.blox.features.zsh.enable = mkEnableOption "zsh";
+  options.blox.profiles.zsh.enable = mkEnableOption "zsh";
 
   config.home.file = mkIf cfg.enable {
     ".zshrc".source = "/etc/zshrc.local";

@@ -1,23 +1,23 @@
 { config, lib, pkgs, ...}: with lib;
 
 let
-  feat = config.blox.features;
+  cfg = config.blox.profiles;
 in {
-  options.blox.features.zsh.enable = mkEnableOption "ZSH with sane (grml) defaults";
-  options.blox.features.tmux.enable = mkEnableOption "tmux with sane default configuration";
+  options.blox.profiles.zsh.enable = mkEnableOption "ZSH with sane (grml) defaults";
+  options.blox.profiles.tmux.enable = mkEnableOption "tmux with sane default configuration";
   config = {
-    programs.zsh = mkIf feat.zsh.enable {
+    programs.zsh = mkIf cfg.zsh.enable {
       enable = true;
       enableCompletion = true;
     };
-    environment.etc."zshrc.local" = mkIf feat.zsh.enable { source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc"; };
-    users.defaultUserShell = mkIf feat.zsh.enable pkgs.zsh;
+    environment.etc."zshrc.local" = mkIf cfg.zsh.enable { source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc"; };
+    users.defaultUserShell = mkIf cfg.zsh.enable pkgs.zsh;
 
-    programs.tmux = mkIf feat.tmux.enable {
+    programs.tmux = mkIf cfg.tmux.enable {
       enable = true;
       terminal = "screen-256color";
       extraTmuxConf = ''
-        ${optionalString feat.zsh.enable "set-option -g default-shell ${pkgs.zsh}/bin/zsh"}
+        ${optionalString cfg.zsh.enable "set-option -g default-shell ${pkgs.zsh}/bin/zsh"}
 
         # True color support
         set-option -sa terminal-overrides ",xterm-kitty:Tc,xterm-256color:Tc"

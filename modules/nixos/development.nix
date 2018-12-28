@@ -1,6 +1,6 @@
 { lib, ... }: with lib;
 
 {
-  options.blox.features.development.enable =
-    mkEnableOption "placeholder to enable all development features in home-manager environment";
+  options.blox.profiles.development.enable =
+    mkEnableOption "placeholder to enable all development profiles in home-manager environment";
 }

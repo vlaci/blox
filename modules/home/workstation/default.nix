@@ -1,9 +1,9 @@
 { lib, config, nixosConfig, pkgs, ... }: with lib;
 
 let
-  cfg = config.blox.features.workstation;
+  cfg = config.blox.profiles.workstation;
 in {
-  options.blox.features.workstation.enable = mkEnableOption "";
+  options.blox.profiles.workstation.enable = mkEnableOption "";
 
   imports = [
     ./awesome

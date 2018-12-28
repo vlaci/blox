@@ -2,14 +2,14 @@
 { config, lib, pkgs, ... }: with lib;
 
 let
-  feat = config.blox.features;
+  feat = config.blox.profiles;
   bloxpkgs = import ../../../pkgs { inherit pkgs; };
 in {
   imports = [
     ./cursor.nix
   ];
 
-  options.blox.features.workstation.enable = mkEnableOption "";
+  options.blox.profiles.workstation.enable = mkEnableOption "";
   config = mkIf feat.workstation.enable {
     hardware.pulseaudio = {
       enable = true;

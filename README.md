@@ -28,7 +28,7 @@ There are a couple of common configuration settings across my NixOS machines so 
       ];
 
       blox = {
-        features = {
+        profiles = {
           development.python.enable = true;
           networkmanager.enable = true;
           docker.enable = true;
@@ -52,7 +52,7 @@ There are a couple of common configuration settings across my NixOS machines so 
       blox.home-manager.config =
         { pkgs, ... }:
         {
-          blox.features.keepass.enable = true;
+          blox.profiles.keepass.enable = true;
 
           home.packages = with pkgs; [
             vscode
