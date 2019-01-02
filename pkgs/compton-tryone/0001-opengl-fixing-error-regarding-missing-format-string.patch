@@ -1,0 +1,40 @@
+From 646c27feeaa8a397c7141196b8965e5de857c8c0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Vask=C3=B3=20L=C3=A1szl=C3=B3?= <laszlo.vasko@outlook.com>
+Date: Sat, 17 Nov 2018 07:51:51 +0100
+Subject: [PATCH] opengl: fixing error regarding missing format string
+
+src/opengl.c: In function 'glx_init_kawase_blur':
+src/opengl.c:624:7: error: format not a string literal and no format arguments [-Werror=format-security]
+       sprintf(pc, FRAG_SHADER_KAWASE_DOWN);
+       ^~~~~~~
+src/opengl.c:672:7: error: format not a string literal and no format arguments [-Werror=format-security]
+       sprintf(pc, FRAG_SHADER_KAWASE_UP);
+       ^~~~~~~
+---
+ src/opengl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/opengl.c b/src/opengl.c
+index 144c08f..2bbb41e 100644
+--- a/src/opengl.c
++++ b/src/opengl.c
+@@ -621,7 +621,7 @@ glx_init_kawase_blur(session_t *ps) {
+       pc += strlen(pc);
+       assert(strlen(shader_str) < len);
+ 
+-      sprintf(pc, FRAG_SHADER_KAWASE_DOWN);
++      sprintf(pc, "%s", FRAG_SHADER_KAWASE_DOWN);
+       assert(strlen(shader_str) < len);
+ #ifdef DEBUG_GLX
+       printf_dbgf("(): Generated kawase downsample shader:\n%s\n", shader_str);
+@@ -669,7 +669,7 @@ glx_init_kawase_blur(session_t *ps) {
+       pc += strlen(pc);
+       assert(strlen(shader_str) < len);
+ 
+-      sprintf(pc, FRAG_SHADER_KAWASE_UP);
++      sprintf(pc, "%s", FRAG_SHADER_KAWASE_UP);
+       assert(strlen(shader_str) < len);
+ #ifdef DEBUG_GLX
+       printf_dbgf("(): Generated kawase upsample shader:\n%s\n", shader_str);
+-- 
+2.18.1
