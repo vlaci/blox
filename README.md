@@ -11,7 +11,7 @@ There are a couple of common configuration settings across my NixOS machines so 
 1. Add this repository as a channel:
 
     ```sh
-    sudo nix-channel --add https://github.com/vlaci/blox/archive/develop.tar.gz blox
+    sudo nix-channel --add https://github.com/vlaci/blox/archive/master.tar.gz blox
     ```
 
 2. Edit your `configuration.nix` file to import `blox`
