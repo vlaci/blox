@@ -62,6 +62,21 @@ Whether to enable ZSH with sane (grml) defaults.
 
 ## Options valid in only nixos configurations:
 
+### blox.blox.installDocs
+
+Whether to install documentation for `blox`
+
+*Type:* `boolean`
+
+
+*Default:* `true`
+
+*Declared by:*
+
+> **[`<modules/nixos/blox.nix>`](../modules/nixos/blox.nix)**  
+
+*Valid in:* nixos
+
 ### blox.home-manager.config
 
 Global Home Manager configuration.

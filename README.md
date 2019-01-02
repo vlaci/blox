@@ -78,8 +78,12 @@ There are a couple of common configuration settings across my NixOS machines so 
 
 ## [Configuration Reference](./doc/options.md)
 
-The options can be viewed as man page too (currently they are not installable):
+The options can be viewed as man page too:
 
 ```sh
+# if you have blox installed and `blox.blox.installDocs is enabled (the default):
+man 5 blox-configuration
+
+# otherwise:
 man -l $(nix-build "<blox/doc>" -A man --no-out-link)
 ```

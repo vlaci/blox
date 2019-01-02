@@ -3,6 +3,7 @@
     ./pam-u2f
     ./virtualisation
     ./workstation
+    ./blox.nix
     ./development.nix
     ./home-manager.nix
     ./i18n.nix
