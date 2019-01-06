@@ -12,6 +12,9 @@ There are a couple of common configuration settings across my NixOS machines so 
 
     ```sh
     sudo nix-channel --add https://github.com/vlaci/blox/archive/master.tar.gz blox
+    sudo nix-channel --add https://github.com/rycee/home-manager/archive/release-18.09.tar.gz home-manager
+    sudo nix-channel --add https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz mozilla
+    sudo nix-channel --update blox home-manager mozilla
     ```
 
 2. Edit your `configuration.nix` file to import `blox`
@@ -57,8 +60,9 @@ There are a couple of common configuration settings across my NixOS machines so 
           home.packages = with pkgs; [
             vscode
           ];
-        };
-      }
+        }
+      ;
+    }
     ```
 
 3. Rebuild NixOS
