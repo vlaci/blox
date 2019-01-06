@@ -660,6 +660,36 @@ Whether to enable KeePass with plugins.
 
 *Valid in:* home-manager
 
+### blox.profiles.workstation.awesome.configure
+
+Whether to configure Awesome WM to blox defaults.
+
+*Type:* `boolean`
+
+
+*Default:* `true`
+
+*Declared by:*
+
+> **[`<modules/home/workstation/awesome/default.nix>`](../modules/home/workstation/awesome/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.workstation.awesome.enable
+
+Whether to install Awesome WM.
+
+*Type:* `boolean`
+
+
+*Default:* `true`
+
+*Declared by:*
+
+> **[`<modules/home/workstation/awesome/default.nix>`](../modules/home/workstation/awesome/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.workstation.compositor.enable
 
 Whether to enable compositing.
