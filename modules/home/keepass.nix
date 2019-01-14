@@ -15,8 +15,6 @@ in {
           keepass-keepassrpc
         ];
       })
-    ]) ++ optionals (isEnabled "workstation") (with pkgs; [
-      xdotool
     ]);
 
     home.file = mkIf (isEnabled "zsh") {
