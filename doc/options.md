@@ -435,6 +435,122 @@ Whether to enable sudo access.
 
 ## Options valid in only home-manager configurations:
 
+### blox.packages.emacs.dotEmacsDir
+
+Contents of the user's `.emacs.d` directory.
+
+*Type:* `path`
+
+
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.enable
+
+Whether to enable custom Emacs config.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.features
+
+Enable or disable certain emacs features exposed by the user
+configuration.
+
+The feature descriptions are presented in `nix-integration.el`
+available on the load path. To load them add the following to
+your init file:
+```
+(load "nix-integration")
+```
+
+
+*Type:* `list or attribute set of submodules`
+
+
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.features.<name?>.enable
+
+Whether to enable ‹name›.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.features.<name?>.extraConfig
+
+Additional elisp configuration
+
+*Type:* `string`
+
+
+*Default:* `""`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.features.<name?>.extraVars
+
+Extra variables needed for the given feature.
+Useful to integrate with external tools. The variables
+are generated to `nix-integration.el`.
+
+
+*Type:* `list or attribute set of Concatenated strings`
+
+
+*Default:* `{}`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.overrides
+
+Allows overriding packages within the Emacs package set.
+
+
+*Type:* `unspecified`
+
+
+*Default:* `"self: super: {}"`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.development
 
 Development tools related options.
@@ -642,6 +758,126 @@ Whether to enable miscellaneous tools.
 *Declared by:*
 
 > **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.enable
+
+Whether to enable custom Emacs config.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.boon.enable
+
+Whether to enable boon.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.evil.enable
+
+Whether to enable evil.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.flyspell.dictionaries
+
+
+
+*Type:* `list of packages`
+
+
+*Default:* `['hunspell-dict-en-us-wordlist-2014.11.17']`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.flyspell.enable
+
+Whether to enable flyspell.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.helm.enable
+
+Whether to enable helm.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.mu4e.enable
+
+Whether to enable mu4e.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.xah-fly-keys.enable
+
+Whether to enable xah-fly-keys.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
 
 *Valid in:* home-manager
 

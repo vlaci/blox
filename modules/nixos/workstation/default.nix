@@ -24,6 +24,7 @@ in {
       fonts = with pkgs; [
         noto-fonts
         noto-fonts-emoji
+        ia-writer-duospace
         unifont
         siji
         fira-code
