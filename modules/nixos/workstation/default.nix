@@ -18,6 +18,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       lightlocker
+      gvfs  # automounting and mtp
     ];
 
     fonts = {
@@ -90,7 +91,6 @@ in {
     services.gnome3 = {
       gnome-keyring.enable = true;
       seahorse.enable = true;
-      gvfs.enable = true;  # automounting and MTP
     };
 
     environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gvfs}/lib/gio/modules" ];

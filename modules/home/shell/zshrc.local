@@ -1,6 +1,5 @@
 export SAVEHIST=100000
 export HISTSIZE=100000
-export EDITOR=vim
 
 alias sshn="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scpn="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"

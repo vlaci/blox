@@ -8,15 +8,13 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = (with pkgs.bloxpkgs.unstable; [
-      (keepass.override {
+      (pkgs.keepass.override {
         plugins = [
           keepass-keeagent
         ] ++ optionals (isEnabled "workstation") [
           keepass-keepassrpc
         ];
       })
-    ]) ++ optionals (isEnabled "workstation") (with pkgs; [
-      xdotool
     ]);
 
     home.file = mkIf (isEnabled "zsh") {
