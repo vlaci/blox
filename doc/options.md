@@ -367,7 +367,7 @@ Cursor theme name
 
 *Type:* `Concatenated string`
 
-<object object at 0x7ffff7fab140>
+
 
 *Declared by:*
 
@@ -381,7 +381,7 @@ Cursor theme package
 
 *Type:* `package`
 
-<object object at 0x7ffff7fab150>
+
 
 *Declared by:*
 

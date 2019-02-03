@@ -80,10 +80,12 @@ def get_option(chapter):
             example = f"\n*Example:* `{example}`\n"
     else:
         example = ""
+
     type = chapter["type"]
-    sentinel = object()
-    default = chapter.get("default", sentinel)
-    if default != sentinel:  # None cis a valid value
+
+    default = ""
+    if "default" in chapter:  # None is a valid value
+        default = chapter["default"]
         if isinstance(default, (bool, str)) or default is None:
             # Nix has a JSON like syntax for primitive types
             default = json.dumps(default)
