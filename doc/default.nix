@@ -44,8 +44,9 @@ in rec {
   ));
 
   markdown = pkgs.runCommand "options.md" {
-    buildInputs = [ pkgs.python3 ];
+    buildInputs = with pkgs; [ python3 glibcLocales ];
   } ''
+    export LC_ALL=en_US.UTF-8
     python3 ${./generate.py} ${definitions} > $out
   '';
 
