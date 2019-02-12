@@ -45,6 +45,7 @@
     nixosConfig = config;
     makeHM = name: user:
       ({config, options, pkgs, ...}:
+      recursiveUpdate
       {
         _module.args = {
           inherit nixosConfig user;
@@ -58,7 +59,8 @@
             (attrNames options.blox.profiles)
             (attrNames nixosConfig.blox.profiles)
           ) (name: nixosConfig.blox.profiles.${name});
-      } // user.home-config);
+      }
+      user.home-config);
     hmUsers = filterAttrs (name: { isNormalUser, ...}: isNormalUser) config.users.users;
   in {
     home-manager.users = mapAttrs makeHM hmUsers;
