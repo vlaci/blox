@@ -31,32 +31,52 @@ in {
       }
     '';
     type = types.submodule ({ config, ... }: {
-      options = {
+      options = with pkgs; {
         enable = mkEnableOption "all development tools";
         c.enable = mkEnableOption' "C/C++ tooling" config.enable;
-        python.enable = mkEnableOption' "Python (2 and 3) tooling" config.enable;
         rust.enable = mkEnableOption' "Rust tooling" config.enable;
+        python = {
+          enable = mkEnableOption' "Python (2 and 3) tooling" config.enable;
+          pyls = mkOption {
+            description = "pyls environment for Python 3";
+            type = types.package;
+            default = (python3.withPackages (ps: with ps; [
+              flake8
+              pylama
+              pylint
+              importmagic
+              python-language-server
+              pyls-black
+              pyls-isort
+              pyls-mypy
+            ]));
+            defaultText = ''
+              python2.withPackages (ps: with ps; [
+                flake8
+                pylama
+                pylint
+                importmagic
+                python-language-server
+                pyls-black
+                pyls-isort
+                pyls-mypy
+              ])
+            '';
+          };
+        };
         tools.enable = mkEnableOption' "miscellaneous tools" config.enable;
       };
     });
   };
 
-  config = {
-    home.packages = with pkgs; optionals cfg.c.enable [
+  config = with pkgs; {
+    home.packages = optionals cfg.c.enable [
       gcc
       lldb
     ] ++ optionals cfg.python.enable [
       pipenv
       (python3Full.withPackages (ps: with ps; [
         setuptools
-        flake8
-        pylama
-        pylint
-        importmagic
-        python-language-server
-        pyls-isort
-        pyls-mypy
-        pyls-black
       ]))
       (pythonFull.withPackages (ps: with ps; [ setuptools ]))
     ] ++ optionals cfg.tools.enable (
@@ -93,7 +113,7 @@ in {
       configure = {
         customRC = ''
           let g:LanguageClient_serverCommands = {
-          \${optionalString cfg.python.enable " 'python': ['pyls'],"}
+          \${optionalString cfg.python.enable " 'python': ['${cfg.python.pyls}/bin/pyls'],"}
           \${optionalString cfg.rust.enable " 'rust': ['rls'],"}
           \}
         '' + (builtins.readFile ./init.vim);
