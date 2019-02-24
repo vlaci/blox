@@ -34,6 +34,15 @@ in {
       options = with pkgs; {
         enable = mkEnableOption "all development tools";
         c.enable = mkEnableOption' "C/C++ tooling" config.enable;
+        php = {
+          enable = mkEnableOption' "PHP tooling" config.enable;
+          php-language-server = mkOption {
+            type = types.package;
+            description = "php-language-server package to use";
+            default = bloxpkgs.phpPackages.php-language-server;
+            defaultText = "bloxpkgs.phpPackages.php-language-server";
+          };
+        };
         python = {
           enable = mkEnableOption' "Python (2 and 3) tooling" config.enable;
           pyls = mkOption {
@@ -87,6 +96,9 @@ in {
         setuptools
       ]))
       (pythonFull.withPackages (ps: with ps; [ setuptools ]))
+    ] ++ optionals cfg.php.enable [
+      php
+      phpPackages.composer
     ] ++ optionals cfg.rust.enable [
       rustup
     ]  ++ optionals cfg.tools.enable (
@@ -123,6 +135,7 @@ in {
       configure = {
         customRC = ''
           let g:LanguageClient_serverCommands = {
+          \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
           \${optionalString cfg.python.enable " 'python': ['${cfg.python.pyls}/bin/pyls'],"}
           \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
           \}

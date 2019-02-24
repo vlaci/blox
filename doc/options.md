@@ -471,6 +471,36 @@ Whether to enable C/C++ tooling.
 
 *Valid in:* home-manager
 
+### blox.profiles.development.php.enable
+
+Whether to enable PHP tooling.
+
+*Type:* `boolean`
+
+
+*Default:* `"blox.profiles.development.enable"`
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.development.php.php-language-server
+
+php-language-server package to use
+
+*Type:* `package`
+
+
+*Default:* `"bloxpkgs.phpPackages.php-language-server"`
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.development.python.enable
 
 Whether to enable Python (2 and 3) tooling.
