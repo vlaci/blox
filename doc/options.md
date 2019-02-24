@@ -516,6 +516,21 @@ Whether to enable Rust tooling.
 
 *Valid in:* home-manager
 
+### blox.profiles.development.rust.rls
+
+rls package to use
+
+*Type:* `package`
+
+
+*Default:* `"bloxpkgs.unstable.rls"`
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.development.tools.enable
 
 Whether to enable miscellaneous tools.

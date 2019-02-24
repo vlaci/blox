@@ -34,7 +34,6 @@ in {
       options = with pkgs; {
         enable = mkEnableOption "all development tools";
         c.enable = mkEnableOption' "C/C++ tooling" config.enable;
-        rust.enable = mkEnableOption' "Rust tooling" config.enable;
         python = {
           enable = mkEnableOption' "Python (2 and 3) tooling" config.enable;
           pyls = mkOption {
@@ -64,6 +63,15 @@ in {
             '';
           };
         };
+        rust = {
+          enable = mkEnableOption' "Rust tooling" config.enable;
+          rls = mkOption {
+            type = types.package;
+            description = "rls package to use";
+            default = bloxpkgs.unstable.rls;
+            defaultText = "bloxpkgs.unstable.rls";
+          };
+        };
         tools.enable = mkEnableOption' "miscellaneous tools" config.enable;
       };
     });
@@ -79,7 +87,9 @@ in {
         setuptools
       ]))
       (pythonFull.withPackages (ps: with ps; [ setuptools ]))
-    ] ++ optionals cfg.tools.enable (
+    ] ++ optionals cfg.rust.enable [
+      rustup
+    ]  ++ optionals cfg.tools.enable (
       [
         jq
         fzf
@@ -114,7 +124,7 @@ in {
         customRC = ''
           let g:LanguageClient_serverCommands = {
           \${optionalString cfg.python.enable " 'python': ['${cfg.python.pyls}/bin/pyls'],"}
-          \${optionalString cfg.rust.enable " 'rust': ['rls'],"}
+          \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
           \}
         '' + (builtins.readFile ./init.vim);
         packages.myVimPackage = {
