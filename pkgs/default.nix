@@ -9,4 +9,5 @@ in {
   material-design-icons = callPackage ./material-design-icons { };
   pixelfun              = callPackage ./pixelfun              { };
   vimPlugins            = callPackage ./vimPlugins            { };
+  phpPackages           = callPackage ./phpPackages           { };
 }

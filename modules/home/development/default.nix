@@ -31,35 +31,77 @@ in {
       }
     '';
     type = types.submodule ({ config, ... }: {
-      options = {
+      options = with pkgs; {
         enable = mkEnableOption "all development tools";
         c.enable = mkEnableOption' "C/C++ tooling" config.enable;
-        python.enable = mkEnableOption' "Python (2 and 3) tooling" config.enable;
-        rust.enable = mkEnableOption' "Rust tooling" config.enable;
+        php = {
+          enable = mkEnableOption' "PHP tooling" config.enable;
+          php-language-server = mkOption {
+            type = types.package;
+            description = "php-language-server package to use";
+            default = bloxpkgs.phpPackages.php-language-server;
+            defaultText = "bloxpkgs.phpPackages.php-language-server";
+          };
+        };
+        python = {
+          enable = mkEnableOption' "Python (2 and 3) tooling" config.enable;
+          pyls = mkOption {
+            description = "pyls environment for Python 3";
+            type = types.package;
+            default = (python3.withPackages (ps: with ps; [
+              flake8
+              pylama
+              pylint
+              importmagic
+              python-language-server
+              pyls-black
+              pyls-isort
+              pyls-mypy
+            ]));
+            defaultText = ''
+              python2.withPackages (ps: with ps; [
+                flake8
+                pylama
+                pylint
+                importmagic
+                python-language-server
+                pyls-black
+                pyls-isort
+                pyls-mypy
+              ])
+            '';
+          };
+        };
+        rust = {
+          enable = mkEnableOption' "Rust tooling" config.enable;
+          rls = mkOption {
+            type = types.package;
+            description = "rls package to use";
+            default = bloxpkgs.unstable.rls;
+            defaultText = "bloxpkgs.unstable.rls";
+          };
+        };
         tools.enable = mkEnableOption' "miscellaneous tools" config.enable;
       };
     });
   };
 
-  config = {
-    home.packages = with pkgs; optionals cfg.c.enable [
+  config = with pkgs; {
+    home.packages = optionals cfg.c.enable [
       gcc
       lldb
     ] ++ optionals cfg.python.enable [
       pipenv
       (python3Full.withPackages (ps: with ps; [
         setuptools
-        flake8
-        pylama
-        pylint
-        importmagic
-        python-language-server
-        pyls-isort
-        pyls-mypy
-        pyls-black
       ]))
       (pythonFull.withPackages (ps: with ps; [ setuptools ]))
-    ] ++ optionals cfg.tools.enable (
+    ] ++ optionals cfg.php.enable [
+      php
+      phpPackages.composer
+    ] ++ optionals cfg.rust.enable [
+      rustup
+    ]  ++ optionals cfg.tools.enable (
       [
         jq
         fzf
@@ -93,8 +135,9 @@ in {
       configure = {
         customRC = ''
           let g:LanguageClient_serverCommands = {
-          \${optionalString cfg.python.enable " 'python': ['pyls'],"}
-          \${optionalString cfg.rust.enable " 'rust': ['rls'],"}
+          \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
+          \${optionalString cfg.python.enable " 'python': ['${cfg.python.pyls}/bin/pyls'],"}
+          \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
           \}
         '' + (builtins.readFile ./init.vim);
         packages.myVimPackage = {

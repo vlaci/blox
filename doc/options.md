@@ -471,6 +471,36 @@ Whether to enable C/C++ tooling.
 
 *Valid in:* home-manager
 
+### blox.profiles.development.php.enable
+
+Whether to enable PHP tooling.
+
+*Type:* `boolean`
+
+
+*Default:* `"blox.profiles.development.enable"`
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.development.php.php-language-server
+
+php-language-server package to use
+
+*Type:* `package`
+
+
+*Default:* `"bloxpkgs.phpPackages.php-language-server"`
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.development.python.enable
 
 Whether to enable Python (2 and 3) tooling.
@@ -486,6 +516,21 @@ Whether to enable Python (2 and 3) tooling.
 
 *Valid in:* home-manager
 
+### blox.profiles.development.python.pyls
+
+pyls environment for Python 3
+
+*Type:* `package`
+
+
+*Default:* `"python2.withPackages (ps: with ps; [\n  flake8\n  pylama\n  pylint\n  importmagic\n  python-language-server\n  pyls-black\n  pyls-isort\n  pyls-mypy\n])\n"`
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.development.rust.enable
 
 Whether to enable Rust tooling.
@@ -494,6 +539,21 @@ Whether to enable Rust tooling.
 
 
 *Default:* `"blox.profiles.development.enable"`
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.development.rust.rls
+
+rls package to use
+
+*Type:* `package`
+
+
+*Default:* `"bloxpkgs.unstable.rls"`
 
 *Declared by:*
 
