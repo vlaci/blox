@@ -1,0 +1,13 @@
+{
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "felixfbecker/language-server": "^5.4"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "chmod u+w vendor/felixfbecker/language-server",
+            "LanguageServer\\ComposerScripts::parseStubs"
+        ]
+    }
+}
