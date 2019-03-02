@@ -20,6 +20,7 @@ in {
     users = mkOption {
       description = "Users with sane defaults";
       type = with types; loaOf attrs;
+      apply = mapAttrs user;
       default = [];
     };
   };
@@ -49,7 +50,7 @@ in {
   config = {
     users = {
       mutableUsers = mkDefault false;
-      users = (mapAttrs user cfg.users);
+      users = cfg.users;
     };
   };
 }

@@ -61,7 +61,7 @@
           ) (name: nixosConfig.blox.profiles.${name});
       }
       user.home-config);
-    hmUsers = filterAttrs (name: { isNormalUser, ...}: isNormalUser) config.users.users;
+    hmUsers = filterAttrs (name: { isNormalUser, ...}: isNormalUser) config.blox.users.users;
   in {
     home-manager.users = mapAttrs makeHM hmUsers;
   };
