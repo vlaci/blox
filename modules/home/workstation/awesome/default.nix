@@ -11,7 +11,11 @@
     windowManager.awesome = with pkgs; let
       modules = callPackage ./extensions.nix { }; in {
         enable = true;
-        package = bloxpkgs.latest.awesome;
+        package = if builtins.compareVersions awesome.version "4.3" >= 0 then
+            awesome
+          else
+            bloxpkgs.unstable.awesome
+          ;
         luaModules = [ modules.lain modules.sharedtags ];
     };
   };

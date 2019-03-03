@@ -2,6 +2,7 @@
 """Generates markdown document from JSON option description exported from nix"""
 
 import collections
+import collections.abc
 import json
 import os
 import sys
