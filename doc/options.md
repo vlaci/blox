@@ -523,7 +523,47 @@ pyls environment for Python 3
 *Type:* `package`
 
 
-*Default:* `"python2.withPackages (ps: with ps; [\n  flake8\n  pylama\n  pylint\n  importmagic\n  python-language-server\n  pyls-black\n  pyls-isort\n  pyls-mypy\n])\n"`
+*Default:* 
+```nix
+python2.withPackages (ps: with ps; [
+  flake8
+  pylama
+  pylint
+  importmagic
+  python-language-server
+  pyls-black
+  pyls-isort
+  pyls-mypy
+])
+```
+
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.development.python.pyls2
+
+pyls environment for Python 2
+
+*Type:* `package`
+
+
+*Default:* 
+```nix
+python2.withPackages (ps: with ps; [
+  flake8
+  pylama
+  pylint
+  importmagic
+  python-language-server
+  pyls-isort
+  pyls-black
+])
+```
+
 
 *Declared by:*
 

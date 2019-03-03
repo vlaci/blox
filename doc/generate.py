@@ -86,10 +86,18 @@ def get_option(chapter):
     default = ""
     if "default" in chapter:  # None is a valid value
         default = chapter["default"]
+        ldelim = "`"
+        rdelim = ldelim
         if isinstance(default, (bool, str)) or default is None:
             # Nix has a JSON like syntax for primitive types
-            default = json.dumps(default)
-        default = f"\n*Default:* `{default}`"
+            default = json.dumps(default).replace(r"\n", "\n")
+            if "\n" in default:
+                # defaultText uses weird formatting
+                # nix is a safe bet for syntax highlight for us
+                ldelim = "\n```nix\n"
+                rdelim = "```\n"
+                default = default.strip("\"")
+        default = f"\n*Default:* {ldelim}{default}{rdelim}"
 
     declared = [norm_path(d) for d in chapter["declarations"]]
     valid_in = [chapter["valid_in"]]
