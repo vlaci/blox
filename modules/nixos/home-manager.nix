@@ -43,7 +43,8 @@
 
   config = let
     nixosConfig = config;
-    makeHM = name: user:
+    makeHM = name: _user: let
+      user = config.users.users.${name}; in
       ({config, options, pkgs, ...}:
       recursiveUpdate
       {
