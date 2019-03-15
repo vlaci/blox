@@ -5,6 +5,7 @@ let
 in {
   latest.vscode         = callPackage ./vscode                { };
   compton-tryone        = callPackage ./compton-tryone        { };
+  keepass-keechallenge  = callPackage ./keepass-keechallenge  { };
   material-design-icons = callPackage ./material-design-icons { };
   pixelfun              = callPackage ./pixelfun              { };
   vimPlugins            = callPackage ./vimPlugins            { };
