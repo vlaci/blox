@@ -31,7 +31,7 @@ in {
       paper-icon-theme
     ]) ++ (with pkgs.bloxpkgs; [
       mozilla.latest.firefox-bin
-       material-design-icons
+      material-design-icons
     ]);
     home.file = {
       ".config/kitty/kitty.conf".source = ./kitty.conf;
