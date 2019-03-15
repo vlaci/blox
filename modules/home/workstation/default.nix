@@ -12,6 +12,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = (with pkgs; [
+      bloxpkgs.dropbox-with-fs-fix
       evince
       gimp
       kitty
