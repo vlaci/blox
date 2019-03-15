@@ -154,33 +154,6 @@ enabled xlayout
 
 *Valid in:* nixos
 
-### blox.profiles.betterU2f.enable
-
-U2F PAM module to be used as a second factor and passing arguments to pam_u2f.so
-
-*Type:* `boolean`
-
-
-*Default:* `false`
-
-*Example:*
-
-```nix
-{
-  hardware.u2f.enable = true;
-  security.pam.enableU2F = true;
-  security.pam.use2Factor = true;
-  security.pam.u2fModuleArgs = "cue";
-  security.pam.services."sudo".use2Factor = false;
-}
-```
-
-*Declared by:*
-
-> **[`<modules/nixos/pam-u2f/default.nix>`](../modules/nixos/pam-u2f/default.nix)**  
-
-*Valid in:* nixos
-
 ### blox.profiles.docker.enable
 
 Whether to enable docker.
@@ -256,6 +229,47 @@ Whether to enable tmux with sane default configuration.
 
 *Valid in:* nixos
 
+### blox.profiles.yubikey.enable
+
+Whether to enable Yubikey Challenge-Response Mode.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/nixos/yubikey/default.nix>`](../modules/nixos/yubikey/default.nix)**  
+
+*Valid in:* nixos
+
+### blox.profiles.yubikey.pamU2f.enable
+
+U2F PAM module to be used as a second factor and passing arguments to pam_u2f.so
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Example:*
+
+```nix
+{
+  security.pam.enableU2F = true;
+  security.pam.use2Factor = true;
+  security.pam.u2fModuleArgs = "cue";
+  security.pam.services."sudo".use2Factor = false;
+}
+```
+
+*Declared by:*
+
+> **[`<modules/nixos/yubikey/default.nix>`](../modules/nixos/yubikey/default.nix)**  
+
+*Valid in:* nixos
+
 ### blox.users.users
 
 Users with sane defaults
@@ -282,7 +296,7 @@ Additional arguments to pass to pam_u2f.so
 
 *Declared by:*
 
-> **[`<modules/nixos/pam-u2f/default.nix>`](../modules/nixos/pam-u2f/default.nix)**  
+> **[`<modules/nixos/yubikey/default.nix>`](../modules/nixos/yubikey/default.nix)**  
 
 *Valid in:* nixos
 
@@ -297,7 +311,7 @@ If set to true u2f is used as 2nd factor.
 
 *Declared by:*
 
-> **[`<modules/nixos/pam-u2f/default.nix>`](../modules/nixos/pam-u2f/default.nix)**  
+> **[`<modules/nixos/yubikey/default.nix>`](../modules/nixos/yubikey/default.nix)**  
 
 *Valid in:* nixos
 
@@ -316,7 +330,7 @@ A service definition may override this setting.
 
 *Declared by:*
 
-> **[`<modules/nixos/pam-u2f/default.nix>`](../modules/nixos/pam-u2f/default.nix)**  
+> **[`<modules/nixos/yubikey/default.nix>`](../modules/nixos/yubikey/default.nix)**  
 
 *Valid in:* nixos
 
@@ -333,7 +347,7 @@ A service definition may override this setting.
 
 *Declared by:*
 
-> **[`<modules/nixos/pam-u2f/default.nix>`](../modules/nixos/pam-u2f/default.nix)**  
+> **[`<modules/nixos/yubikey/default.nix>`](../modules/nixos/yubikey/default.nix)**  
 
 *Valid in:* nixos
 

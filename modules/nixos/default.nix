@@ -1,8 +1,8 @@
 {
   imports = [
-    ./pam-u2f
     ./virtualisation
     ./workstation
+    ./yubikey
     ./blox.nix
     ./development.nix
     ./home-manager.nix

@@ -14,7 +14,7 @@ let
         };
         text = mkOption {
           apply = svc:
-            if parentConfig.blox.profiles.betterU2f.enable then
+            if parentConfig.blox.profiles.yubikey.pamU2f.enable then
               builtins.readFile (
                 pkgs.runCommand "pam-${name}-u2f"
                   { inherit svc; passAsFile = [ "svc" ]; } ''
@@ -30,22 +30,25 @@ let
         };
     };
   };
+  cfg = config.blox.profiles.yubikey;
 in
   {
     options = {
-      blox.profiles.betterU2f.enable = mkOption {
-        description = "U2F PAM module to be used as a second factor and passing arguments to pam_u2f.so";
-        default = false;
-        type = types.bool;
-        example = ''
-          {
-            hardware.u2f.enable = true;
-            security.pam.enableU2F = true;
-            security.pam.use2Factor = true;
-            security.pam.u2fModuleArgs = "cue";
-            security.pam.services."sudo".use2Factor = false;
-          }
-        '';
+      blox.profiles.yubikey = {
+        enable = mkEnableOption "Yubikey Challenge-Response Mode";
+        pamU2f.enable = mkOption {
+          description = "U2F PAM module to be used as a second factor and passing arguments to pam_u2f.so";
+          default = false;
+          type = types.bool;
+          example = ''
+            {
+              security.pam.enableU2F = true;
+              security.pam.use2Factor = true;
+              security.pam.u2fModuleArgs = "cue";
+              security.pam.services."sudo".use2Factor = false;
+            }
+          '';
+        };
       };
       security.pam.services = mkOption {
         type = with types; loaOf (submodule overrideServices);
@@ -66,4 +69,20 @@ in
         default = false;
       };
     };
-  }
+
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      yubikey-personalization
+      yubioath-desktop
+    ] ++ optionals config.blox.profiles.workstation.enable [
+      yubikey-personalization-gui
+    ];
+
+    hardware.u2f.enable = true;
+
+    services.pcscd.enable = true;
+    services.udev.packages = with pkgs; [
+      yubikey-personalization
+    ];
+  };
+}
