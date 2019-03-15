@@ -33,7 +33,15 @@ in {
     type = types.submodule ({ config, ... }: {
       options = with pkgs; {
         enable = mkEnableOption "all development tools";
-        c.enable = mkEnableOption' "C/C++ tooling" config.enable;
+        c = {
+          enable = mkEnableOption' "C/C++ tooling" config.enable;
+          ccls = mkOption {
+            type = types.package;
+            description = "clangd package to use";
+            default = bloxpkgs.unstable.ccls;
+            defaultText = "llvmPackages.clang-unwrapped";
+          };
+        };
         php = {
           enable = mkEnableOption' "PHP tooling" config.enable;
           php-language-server = mkOption {
@@ -135,6 +143,7 @@ in {
       configure = {
         customRC = ''
           let g:LanguageClient_serverCommands = {
+          \${optionalString cfg.c.enable " 'c': ['ccls'],"}
           \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
           \${optionalString cfg.python.enable " 'python': ['${cfg.python.pyls}/bin/pyls'],"}
           \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}

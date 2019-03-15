@@ -470,6 +470,21 @@ Development tools related options.
 
 *Valid in:* home-manager
 
+### blox.profiles.development.c.ccls
+
+clangd package to use
+
+*Type:* `package`
+
+
+*Default:* `"llvmPackages.clang-unwrapped"`
+
+*Declared by:*
+
+> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.development.c.enable
 
 Whether to enable C/C++ tooling.
