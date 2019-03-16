@@ -11,6 +11,7 @@ in {
       (pkgs.keepass.override {
         plugins = [
           keepass-keeagent
+          pkgs.bloxpkgs.keepass-keechallenge
         ] ++ optionals (isEnabled "workstation") [
           keepass-keepassrpc
         ];
