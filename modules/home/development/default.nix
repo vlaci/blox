@@ -85,8 +85,8 @@ in {
           rls = mkOption {
             type = types.package;
             description = "rls package to use";
-            default = bloxpkgs.unstable.rls;
-            defaultText = "bloxpkgs.unstable.rls";
+            default = rls;
+            defaultText = "rls";
           };
         };
         tools.enable = mkEnableOption' "miscellaneous tools" config.enable;
@@ -117,7 +117,7 @@ in {
       ] ++ optionals config.blox.profiles.workstation.enable [
         diffuse
         meld
-        bloxpkgs.latest.vscode
+        vscode
       ] ++ optionals config.blox.profiles.zsh.enable [
         direnv
       ]

@@ -58,7 +58,7 @@ let
         name = "microsoft-tolerant-php-parser-b662587eb797685a98239d1d52d25168a03fdfb2";
         src = fetchurl {
           url = https://api.github.com/repos/Microsoft/tolerant-php-parser/zipball/b662587eb797685a98239d1d52d25168a03fdfb2;
-          sha256 = "04c3i2allk8dp364d5ij43x0v5vpip6kw82cina8z6wb085ywid6";
+          sha256 = "1jxgg8q494jrfxzgflfy6j0f9zkvd0c42dkrnjbrs2g8aq0wxgf8";
         };
       };
     };
