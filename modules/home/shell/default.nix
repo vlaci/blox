@@ -6,7 +6,7 @@ in {
   options.blox.profiles.zsh.enable = mkEnableOption "zsh";
 
   config.home.file = mkIf cfg.enable {
-    ".zshrc".source = "/etc/zshrc.local";
+    ".zshrc".source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc";
     ".zshrc.pre".source = ./zshrc.pre;
     ".zshrc.local".source = ./zshrc.local;
     ".config/zsh/conf.d/10-antigen.pre".text = ''
