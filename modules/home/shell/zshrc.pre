@@ -1,9 +1,0 @@
-CONFIGS="$HOME/.config/zsh/conf.d"
-if [ -d "$CONFIGS" ]; then
-  CONFIGFILES=$(noglob find $CONFIGS -name *.pre)
-  if [ -n "$CONFIGFILES" ]; then
-    for CONFIGFILE in ${(f)CONFIGFILES}; do
-      source $CONFIGFILE
-    done
-  fi
-fi

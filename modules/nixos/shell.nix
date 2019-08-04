@@ -11,7 +11,7 @@ in {
         enableCompletion = true;
       };
       environment.etc."zshrc.local" = { source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc"; };
-      users.defaultUserShell = pkgs.zsh;
+      users.defaultUserShell = mkOverride 900 pkgs.zsh;
     })
     (mkIf cfg.tmux.enable {
       programs.tmux = {
