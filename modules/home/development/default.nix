@@ -100,7 +100,9 @@ in {
       lldb
     ] ++ optionals cfg.python.enable [
       pipenv
+      bloxpkgs.unstable.python3.pkgs.poetry
       (python3Full.withPackages (ps: with ps; [
+        jupyterlab
         setuptools
       ]))
       (pythonFull.withPackages (ps: with ps; [ setuptools ]))
