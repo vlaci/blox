@@ -100,7 +100,9 @@ in {
       lldb
     ] ++ optionals cfg.python.enable [
       pipenv
+      bloxpkgs.unstable.python3.pkgs.poetry
       (python3Full.withPackages (ps: with ps; [
+        jupyterlab
         setuptools
       ]))
       (pythonFull.withPackages (ps: with ps; [ setuptools ]))
@@ -117,7 +119,7 @@ in {
       ] ++ optionals config.blox.profiles.workstation.enable [
         diffuse
         meld
-        vscode
+        bloxpkgs.unstable.vscode
       ] ++ optionals config.blox.profiles.zsh.enable [
         direnv
       ]
