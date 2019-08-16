@@ -23,11 +23,12 @@ theme.font      = "Sans 8"
 theme.tooltip_font      = "Sans 10"
 
 -- {{{ Colors
+theme.alpha = "B0"
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#EA6F81"
 theme.fg_urgent                                 = "#CC9393"
-theme.bg_normal                                 = "#353535"
-theme.bg_focus                                  = "#2C2C2C"
+theme.bg_normal                                 = "#353535" .. theme.alpha
+theme.bg_focus                                  = "#2C2C2C" .. theme.alpha
 theme.bg_urgent                                 = "#1A1A1A"
 
 theme.wibar_bg   = theme.bg_focus
