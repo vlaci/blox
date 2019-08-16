@@ -117,7 +117,7 @@ in {
       ] ++ optionals config.blox.profiles.workstation.enable [
         diffuse
         meld
-        vscode
+        bloxpkgs.unstable.vscode
       ] ++ optionals config.blox.profiles.zsh.enable [
         direnv
       ]
