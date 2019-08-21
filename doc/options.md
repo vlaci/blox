@@ -675,6 +675,21 @@ Whether to enable compositing.
 
 *Valid in:* home-manager
 
+### blox.profiles.workstation.light-locker.enable
+
+Whether to use light-locker for screen locking
+
+*Type:* `boolean`
+
+
+*Default:* `true`
+
+*Declared by:*
+
+> **[`<modules/home/workstation/default.nix>`](../modules/home/workstation/default.nix)**  
+
+*Valid in:* home-manager
+
 # See Also
 
 [`configuration.nix(5)`](https://nixos.org/nixos/manual/options.html),

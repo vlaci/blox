@@ -17,7 +17,6 @@ in {
     };
 
     environment.systemPackages = with pkgs; [
-      lightlocker
       gvfs  # automounting and mtp
     ];
 
