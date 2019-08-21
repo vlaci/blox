@@ -4,6 +4,11 @@ let
   cfg = config.blox.profiles.workstation;
 in {
   options.blox.profiles.workstation.enable = mkEnableOption "";
+  options.blox.profiles.workstation.light-locker.enable = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Whether to use light-locker for screen locking";
+  };
 
   imports = [
     ./awesome
@@ -32,7 +37,7 @@ in {
     ]) ++ (with pkgs.bloxpkgs; [
       mozilla.latest.firefox-bin
       material-design-icons
-    ]);
+    ]) ++ optionals cfg.light-locker.enable [ pkgs.lightlocker ];
     home.file = {
       ".config/kitty/kitty.conf".source = ./kitty.conf;
       ".config/rofi/config.rasi".source = ./config.rasi;
