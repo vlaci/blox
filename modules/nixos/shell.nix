@@ -5,7 +5,16 @@ let
 in {
   options.blox.profiles.zsh.enable = mkEnableOption "ZSH with sane (grml) defaults";
   options.blox.profiles.tmux.enable = mkEnableOption "tmux with sane default configuration";
-  config = mkMerge [ (mkIf cfg.zsh.enable {
+  config = mkMerge [ {
+      environment.systemPackages = with pkgs; [
+        atool
+        mc
+        ranger
+        unzip
+        zip
+      ];
+    }
+    (mkIf cfg.zsh.enable {
       programs.zsh = {
         enable = true;
         enableCompletion = true;
