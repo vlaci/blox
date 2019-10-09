@@ -4,6 +4,12 @@ export HISTSIZE=100000
 alias sshn="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scpn="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias gg="git grep -ni"
+alias gco="git checkout"
+alias gcp="git cherry-pick"
+alias glg="git log --stat"
+alias grb="git rebase"
+alias gst="git status"
+alias gb="git branch"
 
 go-up () {
   cd ..
