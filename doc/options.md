@@ -711,7 +711,7 @@ rls package to use
 *Type:* `package`
 
 
-*Default:* `"bloxpkgs.unstable.rls"`
+*Default:* `"rls"`
 
 *Declared by:*
 
@@ -786,7 +786,7 @@ Whether to enable evil.
 *Type:* `list of packages`
 
 
-*Default:* `['hunspell-dict-en-us-wordlist-2014.11.17']`
+*Default:* `['hunspell-dict-en-us-wordlist-2018.04.16']`
 
 *Declared by:*
 
