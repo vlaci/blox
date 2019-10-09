@@ -114,7 +114,6 @@ in {
     ]  ++ optionals cfg.tools.enable (
       [
         jq
-        fzf
         ripgrep
       ] ++ optionals config.blox.profiles.workstation.enable [
         diffuse
@@ -125,11 +124,7 @@ in {
       ]
     );
 
-    home.file = optionalAttrs config.blox.profiles.zsh.enable ({
-       ".config/zsh/conf.d/12-fzf.rc".text = ''
-        source ${pkgs.fzf}/share/fzf/completion.zsh
-       '';
-      } // optionalAttrs cfg.tools.enable {
+    home.file = (optionalAttrs cfg.tools.enable {
         ".config/zsh/conf.d/10-direnv.rc".text = ''
           eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
         '';

@@ -45,6 +45,9 @@ in {
       '';
       "${dotDir}/grml-zshrc".source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc";
       "${dotDir}/zshrc.local".source = ./zshrc.local;
+      ".config/zsh/conf.d/12-fzf.rc".text = ''
+        source ${pkgs.fzf}/share/fzf/completion.zsh
+      '';
     };
   };
 }
