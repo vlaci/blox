@@ -689,33 +689,6 @@ python2.withPackages (ps: with ps; [
 
 *Valid in:* home-manager
 
-### blox.profiles.development.python.pyls2
-
-pyls environment for Python 2
-
-*Type:* `package`
-
-
-*Default:* 
-```nix
-python2.withPackages (ps: with ps; [
-  flake8
-  pylama
-  pylint
-  importmagic
-  python-language-server
-  pyls-isort
-  pyls-black
-])
-```
-
-
-*Declared by:*
-
-> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
-
-*Valid in:* home-manager
-
 ### blox.profiles.development.rust.enable
 
 Whether to enable Rust tooling.
