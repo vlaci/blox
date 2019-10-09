@@ -66,12 +66,12 @@ let
         example = literalExample ''
           helm.tools."helm-ag-base-command" = '''"''${pkgs.ag}/bin/ag --nocolor --nogroup"''';
         '';
-        type = with types; loaOf string;
+        type = with types; loaOf str;
         default = { };
       };
       extraConfig = mkOption {
         description = "Additional elisp configuration";
-        type = with types; string;
+        type = with types; str;
         default = "";
       };
     };

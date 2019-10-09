@@ -18,7 +18,7 @@ in {
         options = {
           name = mkOption {
             description = "Cursor theme name";
-            type = string;
+            type = str;
           };
           package = mkOption {
             description = "Cursor theme package";

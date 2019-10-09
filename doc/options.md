@@ -379,7 +379,7 @@ Cursor theme to use
 
 Cursor theme name
 
-*Type:* `Concatenated string`
+*Type:* `string`
 
 
 
@@ -524,7 +524,7 @@ Useful to integrate with external tools. The variables
 are generated to `nix-integration.el`.
 
 
-*Type:* `list or attribute set of Concatenated strings`
+*Type:* `list or attribute set of strings`
 
 
 *Default:* `{}`
