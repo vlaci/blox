@@ -379,7 +379,7 @@ Cursor theme to use
 
 Cursor theme name
 
-*Type:* `Concatenated string`
+*Type:* `string`
 
 
 
@@ -434,6 +434,122 @@ Whether to enable sudo access.
 *Valid in:* nixos
 
 ## Options valid in only home-manager configurations:
+
+### blox.packages.emacs.dotEmacsDir
+
+Contents of the user's `.emacs.d` directory.
+
+*Type:* `path`
+
+
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.enable
+
+Whether to enable custom Emacs config.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.features
+
+Enable or disable certain emacs features exposed by the user
+configuration.
+
+The feature descriptions are presented in `nix-integration.el`
+available on the load path. To load them add the following to
+your init file:
+```
+(load "nix-integration")
+```
+
+
+*Type:* `list or attribute set of submodules`
+
+
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.features.<name?>.enable
+
+Whether to enable ‹name›.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.features.<name?>.extraConfig
+
+Additional elisp configuration
+
+*Type:* `string`
+
+
+*Default:* `""`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.features.<name?>.extraVars
+
+Extra variables needed for the given feature.
+Useful to integrate with external tools. The variables
+are generated to `nix-integration.el`.
+
+
+*Type:* `list or attribute set of strings`
+
+
+*Default:* `{}`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
+
+### blox.packages.emacs.overrides
+
+Allows overriding packages within the Emacs package set.
+
+
+*Type:* `unspecified`
+
+
+*Default:* `"self: super: {}"`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/wrapped.nix>`](../modules/home/emacs/wrapped.nix)**  
+
+*Valid in:* home-manager
 
 ### blox.profiles.development
 
@@ -573,33 +689,6 @@ python2.withPackages (ps: with ps; [
 
 *Valid in:* home-manager
 
-### blox.profiles.development.python.pyls2
-
-pyls environment for Python 2
-
-*Type:* `package`
-
-
-*Default:* 
-```nix
-python2.withPackages (ps: with ps; [
-  flake8
-  pylama
-  pylint
-  importmagic
-  python-language-server
-  pyls-isort
-  pyls-black
-])
-```
-
-
-*Declared by:*
-
-> **[`<modules/home/development/default.nix>`](../modules/home/development/default.nix)**  
-
-*Valid in:* home-manager
-
 ### blox.profiles.development.rust.enable
 
 Whether to enable Rust tooling.
@@ -622,7 +711,7 @@ rls package to use
 *Type:* `package`
 
 
-*Default:* `"bloxpkgs.unstable.rls"`
+*Default:* `"rls"`
 
 *Declared by:*
 
@@ -645,6 +734,126 @@ Whether to enable miscellaneous tools.
 
 *Valid in:* home-manager
 
+### blox.profiles.emacs.enable
+
+Whether to enable custom Emacs config.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.boon.enable
+
+Whether to enable boon.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.evil.enable
+
+Whether to enable evil.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.flyspell.dictionaries
+
+
+
+*Type:* `list of packages`
+
+
+*Default:* `['hunspell-dict-en-us-wordlist-2018.04.16']`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.flyspell.enable
+
+Whether to enable flyspell.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.helm.enable
+
+Whether to enable helm.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.mu4e.enable
+
+Whether to enable mu4e.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.emacs.features.xah-fly-keys.enable
+
+Whether to enable xah-fly-keys.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/emacs/default.nix>`](../modules/home/emacs/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.keepass.enable
 
 Whether to enable KeePass with plugins.
@@ -657,6 +866,36 @@ Whether to enable KeePass with plugins.
 *Declared by:*
 
 > **[`<modules/home/keepass.nix>`](../modules/home/keepass.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.workstation.awesome.configure
+
+Whether to configure Awesome WM to blox defaults.
+
+*Type:* `boolean`
+
+
+*Default:* `true`
+
+*Declared by:*
+
+> **[`<modules/home/workstation/awesome/default.nix>`](../modules/home/workstation/awesome/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.workstation.awesome.enable
+
+Whether to install Awesome WM.
+
+*Type:* `boolean`
+
+
+*Default:* `true`
+
+*Declared by:*
+
+> **[`<modules/home/workstation/awesome/default.nix>`](../modules/home/workstation/awesome/default.nix)**  
 
 *Valid in:* home-manager
 

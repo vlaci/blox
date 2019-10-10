@@ -5,13 +5,22 @@ let
 in {
   options.blox.profiles.zsh.enable = mkEnableOption "ZSH with sane (grml) defaults";
   options.blox.profiles.tmux.enable = mkEnableOption "tmux with sane default configuration";
-  config = mkMerge [ (mkIf cfg.zsh.enable {
+  config = mkMerge [ {
+      environment.systemPackages = with pkgs; [
+        atool
+        mc
+        ranger
+        unzip
+        zip
+      ];
+    }
+    (mkIf cfg.zsh.enable {
       programs.zsh = {
         enable = true;
         enableCompletion = true;
       };
       environment.etc."zshrc.local" = { source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc"; };
-      users.defaultUserShell = pkgs.zsh;
+      users.defaultUserShell = mkOverride 900 pkgs.zsh;
     })
     (mkIf cfg.tmux.enable {
       programs.tmux = {

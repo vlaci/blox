@@ -1,7 +1,11 @@
-{ compton, fetchFromGitHub }:
+{ stdenv, lib, fetchFromGitHub, pkgconfig, asciidoc, docbook_xml_dtd_45
+, docbook_xsl, libxslt, libxml2, makeWrapper
+, xorgproto, libxcb ,xcbutilrenderutil, xcbutilimage, pixman, libev
+, dbus, libconfig, libdrm, libGL, pcre, libX11, libXcomposite, libXdamage
+, libXinerama, libXrandr, libXrender, libXext, xwininfo, libxdg_basedir }:
 
-compton.overrideAttrs (super: rec {
-    name = "compton-tryone-${super.version}";
+stdenv.mkDerivation rec {
+    name = "compton-tryone";
 
     src = fetchFromGitHub {
         owner = "tryone144";
@@ -13,4 +17,24 @@ compton.overrideAttrs (super: rec {
     patches = [
         ./0001-opengl-fixing-error-regarding-missing-format-string.patch
     ];
-})
+
+    nativeBuildInputs = [
+      pkgconfig
+      asciidoc
+      docbook_xml_dtd_45
+      docbook_xsl
+      makeWrapper
+    ];
+
+    buildInputs = [
+      dbus libX11 libXcomposite libXdamage libXrender libXrandr libXext
+      libXinerama libdrm pcre libxml2 libxslt libconfig libGL
+    ];
+
+    installFlags = [ "PREFIX=$(out)" ];
+
+    postInstall = ''
+      wrapProgram $out/bin/compton-trans \
+        --prefix PATH : ${lib.makeBinPath [ xwininfo ]}
+    '';
+}

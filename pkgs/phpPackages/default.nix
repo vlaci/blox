@@ -5,7 +5,7 @@
   composer2nix = (import (fetchFromGitHub {
     owner = "svanderburg";
     repo = "composer2nix";
-    rev = "f0aa6db6b67a7df32077e0d416cb29877c4f5360";
-    sha256 = "0z4wcxwxcq53g8zaf4ca7916rhbi06f79bh0bryqyss578693xa3";
+    rev = "v0.0.3";
+    sha256 = "1xa4qrknzz74fxqqihh7san56sq2wiy39n282zrid8zm4y2yl4s6";
     }) { inherit pkgs system; noDev = true; }).override { executable = true; };
 }
