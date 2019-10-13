@@ -665,12 +665,12 @@ Whether to enable Python (2 and 3) tooling.
 
 pyls environment for Python 3
 
-*Type:* `package`
+*Type:* `unspecified`
 
 
 *Default:* 
 ```nix
-python2.withPackages (ps: with ps; [
+python.withPackages (ps: with ps; [
   flake8
   pylama
   pylint

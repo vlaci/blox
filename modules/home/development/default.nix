@@ -55,8 +55,7 @@ in {
           enable = mkEnableOption' "Python (2 and 3) tooling" config.enable;
           pyls = mkOption {
             description = "pyls environment for Python 3";
-            type = types.package;
-            default = (python3.withPackages (ps: with ps; [
+            default = (ps: with ps; [
               flake8
               pylama
               pylint
@@ -65,9 +64,9 @@ in {
               pyls-black
               pyls-isort
               pyls-mypy
-            ]));
+            ]);
             defaultText = ''
-              python2.withPackages (ps: with ps; [
+              python.withPackages (ps: with ps; [
                 flake8
                 pylama
                 pylint
@@ -104,7 +103,7 @@ in {
       (python3Full.withPackages (ps: with ps; [
         jupyterlab
         setuptools
-      ]))
+      ] ++ (cfg.python.pyls ps)))
       (pythonFull.withPackages (ps: with ps; [ setuptools ]))
     ] ++ optionals cfg.php.enable [
       php
@@ -143,7 +142,7 @@ in {
           let g:LanguageClient_serverCommands = {
           \${optionalString cfg.c.enable " 'c': ['ccls'],"}
           \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
-          \${optionalString cfg.python.enable " 'python': ['${cfg.python.pyls}/bin/pyls'],"}
+          \${optionalString cfg.python.enable " 'python': ['pyls'],"}
           \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
           \}
         '' + (builtins.readFile ./init.vim);

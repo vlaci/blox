@@ -54,7 +54,7 @@ in {
         python = {
           enable = profiles.python.enable;
           extraVars."blox-python-lsp-command" = ''
-            '("${profiles.python.pyls}/bin/pyls")
+            '("pyls")
           '';
         };
         php = {
