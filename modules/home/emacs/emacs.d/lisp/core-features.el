@@ -210,6 +210,15 @@
 (when blox-lsp-enable
   (require 'feat-lsp))
 
+(use-package lua-mode
+  :if blox-lua-enable
+  :mode "\\.lua$"
+  :interpreter "lua"
+  :config
+  (setq lua-indent-level 4)
+  (setq lua-indent-string-contents t)
+  (setq lua-prefix-key nil))
+
 (use-package highlight-indent-guides
   :hook (python-mode . highlight-indent-guides-mode)
   :config

@@ -42,6 +42,9 @@ in {
             defaultText = "llvmPackages.clang-unwrapped";
           };
         };
+        lua = {
+          enable = mkEnableOption' "LUA tooling" config.enable;
+        };
         php = {
           enable = mkEnableOption' "PHP tooling" config.enable;
           php-language-server = mkOption {

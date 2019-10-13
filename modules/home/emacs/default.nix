@@ -51,6 +51,9 @@ in {
           extraVars."blox-c-lsp-executable" = ''
             "${profiles.c.ccls}/bin/ccls"'';
         };
+        lua = {
+          enable = profiles.lua.enable;
+        };
         python = {
           enable = profiles.python.enable;
           extraVars."blox-python-lsp-command" = ''
