@@ -3,6 +3,7 @@
 {
   imports = [
     ./development
+    ./doom-emacs
     ./workstation
     ./shell
     ./keepass.nix

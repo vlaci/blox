@@ -618,6 +618,67 @@ Whether to enable miscellaneous tools.
 
 *Valid in:* home-manager
 
+### blox.profiles.doom-emacs.doomPrivateDir
+
+Directory containing customizations, `init.el`, `config.el` and `packages.el`
+
+
+*Type:* `unspecified`
+
+
+*Default:* `"/nix/store/990d2crzaa9kzcdpaz1v3vss7v1lisil-doom.d"`
+
+*Declared by:*
+
+> **[`<modules/home/doom-emacs/default.nix>`](../modules/home/doom-emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.doom-emacs.enable
+
+Whether to enable Doom Emacs configuration.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/doom-emacs/default.nix>`](../modules/home/doom-emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.doom-emacs.extraConfig
+
+Extra configuration options to pass to doom-emacs
+
+*Type:* `strings concatenated with "\n"`
+
+
+*Default:* `""`
+
+*Declared by:*
+
+> **[`<modules/home/doom-emacs/default.nix>`](../modules/home/doom-emacs/default.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.doom-emacs.extraPackages
+
+Extra packages to install
+
+*Type:* `list of packages`
+
+
+*Default:* `[]`
+
+*Declared by:*
+
+> **[`<modules/home/doom-emacs/default.nix>`](../modules/home/doom-emacs/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.keepass.enable
 
 Whether to enable KeePass with plugins.
