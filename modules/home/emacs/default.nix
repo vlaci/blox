@@ -92,8 +92,7 @@ in {
         };
       };
 
-      overrides = self: super:
-        pkgs.bloxpkgs.unstable.emacsPackagesNg.melpaPackages;
+      overrides = self: super: { };
     };
     nixpkgs.config.permittedInsecurePackages = [
       "webkitgtk-2.4.11"

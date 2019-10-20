@@ -4,12 +4,13 @@ let
   cfg = config.blox.packages.emacs;
 
   buildArgs = { emacs = pkgs.emacs; emacs_d = ./emacs.d; overrides = cfg.overrides; loadPath = [ nixIntegration ];};
+  callPackage = pkgs.newScope (pkgs // pkgs.bloxpkgs.emacs);
 
   # First we generate an emacs environment capable of compiling the init files themselves
-  stage1 = pkgs.callPackage ./emacsUsePackage.nix buildArgs;
+  stage1 = callPackage ./emacsUsePackage.nix buildArgs;
 
   # Second we add the compiled init files to the closure
-  stage2 = pkgs.callPackage ./emacsUsePackage.nix (buildArgs // { extraPackages = const [ nixIntegration initFiles ]; });
+  stage2 = callPackage ./emacsUsePackage.nix (buildArgs // { extraPackages = const [ nixIntegration initFiles ]; });
 
   nixIntegration = let
     features = mapAttrsToList

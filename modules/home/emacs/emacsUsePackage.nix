@@ -2,8 +2,7 @@
 , jq
 , runCommand
 , emacs
-, emacsPackages
-, emacsPackagesNgGen
+, emacsPackagesNgFor
 , emacs_d
 , loadPath ? []
 , extraPackages ? self: [ ]
@@ -15,7 +14,7 @@ let
 
   emacsPackages =
     let
-      epkgs = emacsPackagesNgGen emacs;
+      epkgs = emacsPackagesNgFor emacs;
     in
       epkgs.overrideScope' overrides;
 
