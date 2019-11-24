@@ -2,6 +2,7 @@ local editor = os.getenv("EDITOR") or "nvim"
 
 return {
     autostart = {
+        "flameshot",
         "compton --dbus",
         "unclutter -root",
         "light-locker",
