@@ -95,6 +95,7 @@ in {
 
   config = with pkgs; {
     home.packages = optionals cfg.c.enable [
+      cfg.c.ccls
       gcc
       lldb
     ] ++ optionals cfg.python.enable [
