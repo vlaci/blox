@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, options, lib, pkgs, ... }: with lib;
 
 let
   cfg = config.blox.profiles.development;
@@ -136,39 +136,48 @@ in {
         '';
       });
 
-    programs.neovim = mkIf (cfg.enable || cfg.tools.enable) {
-      enable = mkDefault true;
-      configure = {
-        customRC = ''
-          let g:LanguageClient_serverCommands = {
-          \${optionalString cfg.c.enable " 'c': ['ccls'],"}
-          \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
-          \${optionalString cfg.python.enable " 'python': ['pyls'],"}
-          \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
-          \}
-        '' + (builtins.readFile ./init.vim);
-        packages.myVimPackage = {
-          start = (with pkgs.bloxpkgs.vimPlugins; [
-            tender
-            yarp
-            ncm2
-            emmet
-            which-key
-          ]) ++ (with pkgs.bloxpkgs.unstable.vimPlugins; [
-            LanguageClient-neovim
-          ]) ++ (with pkgs.vimPlugins; [
-            neomake
-            vim-nix
-            vim-airline
-            vim-airline-themes
-            vim-toml
-            fzf-vim fzfWrapper
-            surround
-            fugitive
-          ]);
-        };
-      };
-    };
+    programs.neovim = let
+      extraConfig = ''
+        let g:LanguageClient_serverCommands = {
+        \${optionalString cfg.c.enable " 'c': ['ccls'],"}
+        \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
+        \${optionalString cfg.python.enable " 'python': ['pyls'],"}
+        \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
+        \}
+      '' + (builtins.readFile ./init.vim);
+      plugins =
+        (with pkgs.bloxpkgs.vimPlugins; [
+          tender
+          yarp
+          ncm2
+          emmet
+          which-key
+        ]) ++ (with pkgs.bloxpkgs.unstable.vimPlugins; [
+          LanguageClient-neovim
+        ]) ++ (with pkgs.vimPlugins; [
+          neomake
+          vim-nix
+          vim-airline
+          vim-airline-themes
+          vim-toml
+          fzf-vim fzfWrapper
+          surround
+          fugitive
+        ]);
+      in (mkIf (cfg.enable || cfg.tools.enable) {
+        enable = mkDefault true;
+      } // (
+        if hasAttr "extraConfig" options.programs.neovim then
+          # COMPAT: home-manager >= 19.09
+          { inherit extraConfig plugins; }
+        else
+          # COMPAT: home-manager < 19.09
+          { configure = {
+              customRC = extraConfig;
+              packages.myVimPackage.start = plugins;
+            };
+          }
+      ));
 
     programs.git = {
       aliases = {
