@@ -1,4 +1,4 @@
-{ config, lib, ... }: with lib;
+{ config, options, lib, ... }: with lib;
 
 let
   cfg.hu = {
@@ -29,9 +29,23 @@ in
       example = ''"hu,us"'';
     };
   };
-  config.i18n = mkDefault cfg.${config.blox.i18n.lang};
-  config.services.xserver = mkIf config.blox.profiles.workstation.enable {
-    layout = config.blox.i18n.xlayout;
-    xkbOptions = mkDefault "grp:lalt_lshift_toggle, compose:rctrl-altgr, caps:escape";
-  };
+  config = let
+      selected = cfg.${config.blox.i18n.lang};
+    in
+      if hasAttr "console" options then
+        # COMPAT: NixOS >= 20.03
+        {
+          console.keyMap = mkDefault selected.consoleKeyMap;
+          console.font = mkDefault selected.consoleFont;
+          i18n.defaultLocale = mkDefault selected.defaultLocale;
+        }
+      else
+        # COMPAT: NixOS < 20.03
+        { i18n = mkDefault selected; }
+    // {
+      services.xserver = mkIf config.blox.profiles.workstation.enable {
+        layout = config.blox.i18n.xlayout;
+        xkbOptions = mkDefault "grp:lalt_lshift_toggle, compose:rctrl-altgr, caps:escape";
+      };
+    };
 }
