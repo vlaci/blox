@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, options, lib, pkgs, ... }: with lib;
 
 let
   cfg = config.blox.profiles.development;
@@ -55,8 +55,7 @@ in {
           enable = mkEnableOption' "Python (2 and 3) tooling" config.enable;
           pyls = mkOption {
             description = "pyls environment for Python 3";
-            type = types.package;
-            default = (python3.withPackages (ps: with ps; [
+            default = (ps: with ps; [
               flake8
               pylama
               pylint
@@ -65,9 +64,9 @@ in {
               pyls-black
               pyls-isort
               pyls-mypy
-            ]));
+            ]);
             defaultText = ''
-              python2.withPackages (ps: with ps; [
+              python.withPackages (ps: with ps; [
                 flake8
                 pylama
                 pylint
@@ -96,6 +95,7 @@ in {
 
   config = with pkgs; {
     home.packages = optionals cfg.c.enable [
+      cfg.c.ccls
       gcc
       lldb
     ] ++ optionals cfg.python.enable [
@@ -104,7 +104,7 @@ in {
       (python3Full.withPackages (ps: with ps; [
         jupyterlab
         setuptools
-      ]))
+      ] ++ (cfg.python.pyls ps)))
       (pythonFull.withPackages (ps: with ps; [ setuptools ]))
     ] ++ optionals cfg.php.enable [
       php
@@ -136,39 +136,48 @@ in {
         '';
       });
 
-    programs.neovim = mkIf (cfg.enable || cfg.tools.enable) {
-      enable = mkDefault true;
-      configure = {
-        customRC = ''
-          let g:LanguageClient_serverCommands = {
-          \${optionalString cfg.c.enable " 'c': ['ccls'],"}
-          \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
-          \${optionalString cfg.python.enable " 'python': ['${cfg.python.pyls}/bin/pyls'],"}
-          \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
-          \}
-        '' + (builtins.readFile ./init.vim);
-        packages.myVimPackage = {
-          start = (with pkgs.bloxpkgs.vimPlugins; [
-            tender
-            yarp
-            ncm2
-            emmet
-            which-key
-          ]) ++ (with pkgs.bloxpkgs.unstable.vimPlugins; [
-            LanguageClient-neovim
-          ]) ++ (with pkgs.vimPlugins; [
-            neomake
-            vim-nix
-            vim-airline
-            vim-airline-themes
-            vim-toml
-            fzf-vim fzfWrapper
-            surround
-            fugitive
-          ]);
-        };
-      };
-    };
+    programs.neovim = let
+      extraConfig = ''
+        let g:LanguageClient_serverCommands = {
+        \${optionalString cfg.c.enable " 'c': ['ccls'],"}
+        \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
+        \${optionalString cfg.python.enable " 'python': ['pyls'],"}
+        \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
+        \}
+      '' + (builtins.readFile ./init.vim);
+      plugins =
+        (with pkgs.bloxpkgs.vimPlugins; [
+          tender
+          yarp
+          ncm2
+          emmet
+          which-key
+        ]) ++ (with pkgs.bloxpkgs.unstable.vimPlugins; [
+          LanguageClient-neovim
+        ]) ++ (with pkgs.vimPlugins; [
+          neomake
+          vim-nix
+          vim-airline
+          vim-airline-themes
+          vim-toml
+          fzf-vim fzfWrapper
+          surround
+          fugitive
+        ]);
+      in (mkIf (cfg.enable || cfg.tools.enable) {
+        enable = mkDefault true;
+      } // (
+        if hasAttr "extraConfig" options.programs.neovim then
+          # COMPAT: home-manager >= 19.09
+          { inherit extraConfig plugins; }
+        else
+          # COMPAT: home-manager < 19.09
+          { configure = {
+              customRC = extraConfig;
+              packages.myVimPackage.start = plugins;
+            };
+          }
+      ));
 
     programs.git = {
       aliases = {

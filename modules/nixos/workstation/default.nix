@@ -1,5 +1,5 @@
 
-{ config, lib, pkgs, ... }: with lib;
+{ config, options, lib, pkgs, ... }: with lib;
 
 let
   feat = config.blox.profiles;
@@ -88,12 +88,16 @@ in {
     # to allow virt-manager and stuff write their settings
     services.dbus.packages = with pkgs; [ gnome3.dconf ];
 
-    services.gnome3 = {
-      gnome-keyring.enable = true;
-      seahorse.enable = true;
-    };
+    services.gnome3.gnome-keyring.enable = true;
 
     environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gvfs}/lib/gio/modules" ];
     environment.variables.SOUND_THEME_FREEDESKTOP = "${pkgs.sound-theme-freedesktop}";
-  };
+  } // (
+    if (hasAttr "programs" options) then
+      # COMPAT: NixOS >= 19.09
+      { programs.seahorse.enable = true; }
+    else
+      # COMPAT: NixOS < 19.09
+      { services.gnome3.seahorse.enable = true; }
+  );
 }

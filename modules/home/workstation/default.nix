@@ -19,6 +19,7 @@ in {
     home.packages = (with pkgs; [
       bloxpkgs.dropbox-with-fs-fix
       evince
+      flameshot
       gimp
       kitty
       libreoffice-fresh
@@ -27,7 +28,6 @@ in {
       pcmanfm
       rofi
       remmina
-      scrot
       vlc
       xclip
       xsel
