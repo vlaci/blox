@@ -84,7 +84,7 @@ in {
           rls = mkOption {
             type = types.package;
             description = "rls package to use";
-            default = rls;
+            default = bloxpkgs.unstable.rls;
             defaultText = "rls";
           };
         };
@@ -164,7 +164,7 @@ in {
           surround
           fugitive
         ]);
-      in (mkIf (cfg.enable || cfg.tools.enable) {
+      in (mkIf (cfg.enable || cfg.tools.enable) ({
         enable = mkDefault true;
       } // (
         if hasAttr "extraConfig" options.programs.neovim then
@@ -177,7 +177,7 @@ in {
               packages.myVimPackage.start = plugins;
             };
           }
-      ));
+      )));
 
     programs.git = {
       aliases = {

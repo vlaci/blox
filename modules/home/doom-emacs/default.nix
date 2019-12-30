@@ -34,11 +34,11 @@ in {
       inherit (cfg) extraConfig doomPrivateDir;
     };
   in {
-    home.packages = [ emacs ];
     home.file.".emacs.d/init.el".text = ''
       (load "default.el")
     '';
-
+    programs.emacs.package = emacs;
+    programs.emacs.enable = true;
     blox.profiles.doom-emacs.package = emacs;
   });
 }
