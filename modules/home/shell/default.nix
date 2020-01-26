@@ -40,9 +40,6 @@ in {
       ];
     };
     home.file = {
-      "${dotDir}/.zshenv".text = ''
-        setopt no_global_rcs
-      '';
       "${dotDir}/grml-zshrc".source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc";
       "${dotDir}/zshrc.local".source = ./zshrc.local;
       ".config/zsh/conf.d/12-fzf.rc".text = ''
