@@ -1,4 +1,4 @@
-{ config, lib, ...}: with lib;
+{ options, config, lib, ...}: with lib;
 
 let
   cfg = config.blox.users;
@@ -7,6 +7,7 @@ let
       inherit isNormalUser createHome;
     }
   ;
+  defaultUsers = { root = { isNormalUser = false; }; };
 in {
   options.blox.users = {
     defaultGroups = mkOption {
@@ -21,7 +22,7 @@ in {
       description = "Users with sane defaults";
       type = with types; loaOf attrs;
       apply = mapAttrs user;
-      default = [];
+      default = defaultUsers;
     };
   };
 
@@ -48,6 +49,8 @@ in {
   };
 
   config = {
+    blox.users.users = defaultUsers;
+
     users = {
       mutableUsers = mkDefault false;
       users = cfg.users;
