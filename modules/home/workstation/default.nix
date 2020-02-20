@@ -28,6 +28,7 @@ in {
       pcmanfm
       rofi
       remmina
+      scrot
       vlc
       xclip
       xsel

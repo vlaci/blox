@@ -209,7 +209,7 @@ return {
                 awful.key({ "Mod1", "Ctrl" },            "l",     function () awful.spawn("xset dpms force off") end,
                     {description = "lock workspace", group = "screen"}),
                 awful.key({ "Mod1", "Ctrl" },            "a",     function () awful.spawn("keepass --auto-type") end),
-                awful.key({                },        "Print",     function () awful.spawn("flameshot screen -c'") end,
+                awful.key({                },        "Print",     function () awful.spawn("scrot 'Screenshot-%Y-%m-%d-%T_$wx$h.png' -e 'mv $f ~/Képek/'") end,
                     {description = "take screenshot", group = "screen"})
             )
             -- Bind all key numbers to tags.
