@@ -105,7 +105,6 @@ in {
         jupyterlab
         setuptools
       ] ++ (cfg.python.pyls ps)))
-      (pythonFull.withPackages (ps: with ps; [ setuptools ]))
     ] ++ optionals cfg.php.enable [
       php
       phpPackages.composer
