@@ -116,7 +116,6 @@ in {
         jq
         ripgrep
       ] ++ optionals config.blox.profiles.workstation.enable [
-        diffuse
         meld
         bloxpkgs.unstable.vscode
       ] ++ optionals config.blox.profiles.zsh.enable [
