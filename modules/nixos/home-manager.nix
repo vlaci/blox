@@ -55,6 +55,7 @@
         imports = nixosConfig.blox.home-manager.config ++ [
           ../home
         ];
+        nixpkgs.config = nixosConfig.nixpkgs.config;
         blox.profiles = genAttrs (
           intersectLists
             (attrNames options.blox.profiles)
