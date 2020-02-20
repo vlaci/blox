@@ -98,14 +98,14 @@ in {
       cfg.c.ccls
       gcc
       lldb
-    ] ++ optionals cfg.python.enable [
+    ] ++ optionals cfg.python.enable ([
       pipenv
-      bloxpkgs.unstable.python3.pkgs.poetry
-      (python3Full.withPackages (ps: with ps; [
+      python3Full
+    ] ++ (with python3Packages; [
         jupyterlab
         setuptools
-      ] ++ (cfg.python.pyls ps)))
-    ] ++ optionals cfg.php.enable [
+      ]) ++ (cfg.python.pyls python3Packages)
+    ) ++ optionals cfg.php.enable [
       php
       phpPackages.composer
     ] ++ optionals cfg.rust.enable [
