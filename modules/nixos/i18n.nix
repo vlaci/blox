@@ -32,7 +32,7 @@ in
   config = let
       selected = cfg.${config.blox.i18n.lang};
     in
-      if hasAttr "console" options then
+      (if hasAttr "console" options then
         # COMPAT: NixOS >= 20.03
         {
           console.keyMap = mkDefault selected.consoleKeyMap;
@@ -41,7 +41,7 @@ in
         }
       else
         # COMPAT: NixOS < 20.03
-        { i18n = mkDefault selected; }
+        { i18n = mkDefault selected; })
     // {
       services.xserver = mkIf config.blox.profiles.workstation.enable {
         layout = config.blox.i18n.xlayout;
