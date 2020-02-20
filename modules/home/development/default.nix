@@ -84,7 +84,7 @@ in {
           rls = mkOption {
             type = types.package;
             description = "rls package to use";
-            default = bloxpkgs.unstable.rls;
+            default = rls;
             defaultText = "rls";
           };
         };
