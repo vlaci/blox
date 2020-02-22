@@ -45,6 +45,11 @@ in {
       ".config/zsh/conf.d/12-fzf.rc".text = ''
         source ${pkgs.fzf}/share/fzf/completion.zsh
       '';
+      ".config/zsh/conf.d/try.rc".source = pkgs.substituteAll {
+        src = ./command_not_found.zsh;
+        inherit (builtins) currentSystem;
+        inherit (pkgs) sqlite;
+      };
     };
     home.packages = with pkgs; [
       fzf
