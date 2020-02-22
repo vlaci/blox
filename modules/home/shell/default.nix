@@ -46,5 +46,8 @@ in {
         source ${pkgs.fzf}/share/fzf/completion.zsh
       '';
     };
+    home.packages = with pkgs; [
+      fzf
+    ];
   };
 }
