@@ -15,35 +15,41 @@ in {
     ./compositor
   ];
 
-  config = mkIf cfg.enable {
-    home.packages = (with pkgs; [
-      bloxpkgs.dropbox-with-fs-fix
-      evince
-      flameshot
-      gimp
-      kitty
-      libreoffice-fresh
-      networkmanager_dmenu
-      pavucontrol
-      pcmanfm
-      rofi
-      remmina
-      scrot
-      vlc
-      xclip
-      xsel
+  config = mkIf cfg.enable (mkMerge [
+    {
+      home.packages = (with pkgs; [
+        bloxpkgs.dropbox-with-fs-fix
+        evince
+        flameshot
+        gimp
+        kitty
+        libreoffice-fresh
+        networkmanager_dmenu
+        pavucontrol
+        pcmanfm
+        rofi
+        remmina
+        scrot
+        vlc
+        xclip
+        xsel
 
-      arc-theme
-      paper-icon-theme
-    ]) ++ (with pkgs.bloxpkgs; [
-      mozilla.latest.firefox-bin
-      material-design-icons
-    ]) ++ optionals cfg.light-locker.enable [ pkgs.lightlocker ];
-    home.file = {
-      ".config/kitty/kitty.conf".source = ./kitty.conf;
-      ".config/rofi/config.rasi".source = ./config.rasi;
-    };
+        arc-theme
+        paper-icon-theme
+      ]) ++ (with pkgs.bloxpkgs; [
+        mozilla.latest.firefox-bin
+        material-design-icons
+      ]) ++ optionals cfg.light-locker.enable [ pkgs.lightlocker ];
+      home.file = {
+        ".config/kitty/kitty.conf".source = ./kitty.conf;
+        ".config/rofi/config.rasi".source = ./config.rasi;
+      };
 
-    home.keyboard.layout = mkDefault nixosConfig.blox.i18n.xlayout;
-  };
+      home.keyboard.layout = mkDefault nixosConfig.blox.i18n.xlayout;
+    }
+    (mkIf nixosConfig.programs.browserpass.enable {
+      # https://github.com/NixOS/nixpkgs/issues/47340
+      home.file.".mozilla/native-messaging-hosts/com.github.browserpass.native.json".source = "${pkgs.browserpass}/lib/browserpass/hosts/firefox/com.github.browserpass.native.json";
+    })
+  ]);
 }
