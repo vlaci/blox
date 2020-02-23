@@ -21,6 +21,45 @@ fe1 () {
   $EDITOR $(find . -name "$1" -print -quit)
 }
 
+autoload -U add-zle-hook-widget
+get-edit-mode () {
+    case "$CURRENT_KEYMAP" in
+      vi)
+        case $KEYMAP in
+          main)
+            printf $format "\e[5 q"  # line
+            ;;
+          vicmd|visual)
+            printf $format "\e[1 q"  # block
+        esac
+        ;;
+      *)
+        printf $format "\e[3 q"  # underline
+        ;;
+    esac
+}
+add-zle-hook-widget zle-keymap-select get-edit-mode
+add-zle-hook-widget zle-line-init get-edit-mode
+CURRENT_KEYMAP=emacs
+toggle-edit-mode() {
+    local ret=$?
+    case "$CURRENT_KEYMAP" in
+      emacs)
+        bindkey -v
+        CURRENT_KEYMAP=vi
+        ;;
+      vi)
+        bindkey -e
+        CURRENT_KEYMAP=emacs
+        ;;
+    esac
+    zle get-edit-mode
+    return $ret
+}; zle -N toggle-edit-mode
+bindkey -M emacs "^y" toggle-edit-mode
+bindkey -M viins "^y" toggle-edit-mode
+bindkey -M vicmd "^y" toggle-edit-mode
+bindkey -M visual "^y" toggle-edit-mode
 
 go-up () {
   cd ..
