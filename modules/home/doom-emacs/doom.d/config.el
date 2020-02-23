@@ -4,3 +4,6 @@
 
 (setq doom-theme 'doom-nord
       lsp-keymap-prefix "s-a")
+
+(after! ivy-posframe
+  (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))))
