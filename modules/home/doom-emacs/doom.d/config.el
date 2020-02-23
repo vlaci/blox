@@ -7,3 +7,8 @@
 
 (after! ivy-posframe
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))))
+
+(defun load-theme--disable-old-theme(_theme &rest _args)
+  "Disable current theme before loading new one."
+  (mapcar #'disable-theme custom-enabled-themes))
+(advice-add 'load-theme :before #'load-theme--disable-old-theme)
