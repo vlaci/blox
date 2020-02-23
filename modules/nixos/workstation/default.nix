@@ -46,8 +46,25 @@ in {
       enable = true;
       libinput = {
         enable = true;
-        naturalScrolling = true;
       };
+
+      # https://github.com/NixOS/nixpkgs/issues/75007
+      # https://github.com/NixOS/nixpkgs/pull/73785
+      # https://github.com/thiagokokada/dotfiles/commit/17057a544dcb8a51e3b9b1ea92c476edd6e2cc46
+      inputClassSections = [
+        ''
+          Identifier "mouse"
+          Driver "libinput"
+          MatchIsPointer "on"
+          Option "AccelProfile" "flat"
+        ''
+        ''
+          Identifier "touchpad"
+          Driver "libinput"
+          MatchIsTouchpad "on"
+          Option "NaturalScrolling" "true"
+        ''
+      ];
 
       desktopManager.xterm.enable = false;
       desktopManager.session = [{
