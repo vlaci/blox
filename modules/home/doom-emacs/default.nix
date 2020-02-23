@@ -37,6 +37,10 @@ in {
     home.file.".emacs.d/init.el".text = ''
       (load "default.el")
     '';
+    home.packages = with pkgs; [
+      python3Packages.grip
+      mdl
+    ];
     programs.emacs.package = emacs;
     programs.emacs.enable = true;
     blox.profiles.doom-emacs.package = emacs;
