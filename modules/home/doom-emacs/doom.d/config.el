@@ -2,4 +2,5 @@
 
 ;; Place your private configuration here
 
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-nord
+      lsp-keymap-prefix "s-a")
