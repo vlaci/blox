@@ -35,10 +35,10 @@ in {
         xsel
 
         arc-theme
+        material-design-icons
         paper-icon-theme
       ]) ++ (with pkgs.bloxpkgs; [
         mozilla.latest.firefox-bin
-        material-design-icons
       ]) ++ optionals cfg.light-locker.enable [ pkgs.lightlocker ];
       home.file = {
         ".config/kitty/kitty.conf".source = ./kitty.conf;
