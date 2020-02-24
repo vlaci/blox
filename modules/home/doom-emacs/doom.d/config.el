@@ -3,7 +3,9 @@
 ;; Place your private configuration here
 
 (setq doom-theme 'doom-nord
-      lsp-keymap-prefix "s-a")
+      lsp-keymap-prefix "s-a"
+      Info-directory-list nil
+      flycheck-flake8rc ".flake8")
 
 (after! ivy-posframe
   (setq ivy-posframe-display-functions-alist '((t . ivy-posframe-display-at-frame-top-center))))

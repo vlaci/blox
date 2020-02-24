@@ -1,0 +1,18 @@
+{
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "phpactor/phpactor": "^0.13"
+    },
+    "scripts": {
+        "pre-autoload-dump": [
+            "chmod -R u+w vendor"
+        ],
+        "post-install-cmd": [
+            "rm vendor/bin/composer",
+            "rm vendor/bin/jsonlint",
+            "rm vendor/bin/validate-json",
+            "php vendor/bin/phpactor || true"
+        ]
+    }
+}

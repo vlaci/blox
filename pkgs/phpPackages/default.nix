@@ -2,6 +2,7 @@
 
 {
   php-language-server = callPackage ./php-language-server { noDev = true; };
+  phpactor = callPackage ./phpactor { noDev = true; };
   composer2nix = (import (fetchFromGitHub {
     owner = "svanderburg";
     repo = "composer2nix";
