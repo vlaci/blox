@@ -9,10 +9,11 @@ local battery    = require("widgets/battery")
 local volume     = require("widgets/volume")
 local diskfree   = require("widgets/diskfree")
 local redshift   = require("widgets/redshift")
+local keyboard   = require("widgets/keyboardlayout")
 
 -- {{{ Wibar
 -- Keyboard map indicator and switcher
-mykeyboardlayout = awful.widget.keyboardlayout()
+local mykeyboardlayout = keyboard.widget
 
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()

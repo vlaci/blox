@@ -4,6 +4,7 @@ local gears     = require("gears")
 local wibox     = require("wibox")
 
 local config = require("configuration.client")
+local keyboard = require("widgets/keyboardlayout")
 
 do
     local default_gaps = beautiful.useless_gap
@@ -88,30 +89,35 @@ client.connect_signal("request::titlebars", function(c)
             awful.mouse.client.resize(c)
         end)
     )
-
-    awful.titlebar(c, {size = 19}) : setup {
+    local wnd_kb_layout = keyboard.widget_for_client(c)
+    awful.titlebar(c, {size = 23, position = "right"}) : setup {
+        { -- Right
+            awful.titlebar.widget.closebutton    (c),
+            awful.titlebar.widget.ontopbutton    (c),
+            awful.titlebar.widget.stickybutton   (c),
+            awful.titlebar.widget.maximizedbutton(c),
+            awful.titlebar.widget.floatingbutton (c),
+            wnd_kb_layout,
+            layout = wibox.layout.fixed.vertical()
+        },
+        { -- Middle
+            {
+                { -- Title
+                    align  = "center",
+                    widget = awful.titlebar.widget.titlewidget(c)
+                },
+                buttons = buttons,
+                layout  = wibox.layout.flex.vertical
+            },
+            direction = "west",
+            layout = wibox.container.rotate
+        },
         { -- Left
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
+            layout  = wibox.layout.fixed.vertical
         },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
+        layout = wibox.layout.align.vertical
     }
 end)
 

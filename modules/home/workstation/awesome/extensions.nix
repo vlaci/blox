@@ -1,6 +1,21 @@
 {stdenv, fetchFromGitHub}:
 
 {
+  awpwkb = stdenv.mkDerivation rec {
+    name = "awpwkb";
+    src = fetchFromGitHub {
+      # https://github.com/vladimir-g/awpwkb
+      owner = "vladimir-g";
+      repo = "awpwkb";
+      rev = "42ce6e5fc89b5333cd45e7c06cf32f8ef35c03a5";
+      sha256 = "11bhx7ldykjxygb5qp7y2mkazxbavi5k9f71z4a1z8s2f8vz6k5j";
+    };
+
+    installPhase = ''
+      mkdir -p $out/share/lua/5.2
+      cp -a . $out/share/lua/5.2/${name}
+    '';
+  };
   lain = stdenv.mkDerivation rec {
     name = "lain";
     src = fetchFromGitHub {

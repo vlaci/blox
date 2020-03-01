@@ -32,7 +32,7 @@ in {
             else
               bloxpkgs.unstable.awesome
             ;
-          luaModules = [ modules.lain modules.sharedtags ];
+          luaModules = [ modules.awpwkb modules.lain modules.sharedtags ];
       };
     };
   };
