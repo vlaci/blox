@@ -42,6 +42,7 @@ in {
       };
     };
 
+    location.provider = "geoclue2";
     services.xserver = {
       enable = true;
       libinput = {

@@ -37,6 +37,7 @@ in {
         arc-theme
         material-design-icons
         paper-icon-theme
+        redshift
       ]) ++ (with pkgs.bloxpkgs; [
         mozilla.latest.firefox-bin
       ]) ++ optionals cfg.light-locker.enable [ pkgs.lightlocker ];
