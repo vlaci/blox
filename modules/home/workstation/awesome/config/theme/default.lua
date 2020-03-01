@@ -15,7 +15,7 @@ local lain_helpers = require("lain.helpers")
 -- inherit default theme
 local theme = dofile(gfs.get_themes_dir() .. "zenburn/theme.lua")
 theme.dir = gfs.get_configuration_dir() .. "theme/"
-theme.wallpaper = theme.dir .. "wall.png"
+theme.wallpaper = theme.dir .. "wall.jpg"
 -- }}}
 
 -- {{{ Styles
