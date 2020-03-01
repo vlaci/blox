@@ -11,10 +11,10 @@ local underline = wibox.container.margin()
 local batstatus = lain.widget.fs({
     timeout = 61,
     settings = function()
-        local root_avail_p = tonumber(fs_info["/ avail_p"]) or 0
-        local root_avail_gb = tonumber(fs_info["/ avail_gb"]) or 0
-        local home_avail_p = tonumber(fs_info["/home avail_p"]) or 0
-        local home_avail_gb = tonumber(fs_info["/home avail_gb"]) or 0
+        local root_avail_p = 100 - fs_now["/"].percentage
+        local root_avail_gb = fs_now["/"].free
+        local home_avail_p = 100 - fs_now["/home"].percentage
+        local home_avail_gb = fs_now["/home"].free
 
         local markup = lain.util.markup
 

@@ -21,8 +21,8 @@
     src = fetchFromGitHub {
       owner = "lcpz";
       repo = "lain";
-      rev = "5f1d675dfabe09c56cc3f621ed76d17b29e2bae0";
-      sha256 = "1agjd2m0zgz9bjd7pv3g8zzhfvr6p2bg5va28cz8dn1r4x3q5f7q";
+      rev = "71ca1bd76739f5d4f11cc065f2943f1cb87627ab";
+      sha256 = "021bcb71hdq6l60pc5z9hpdljs0g0w7ivz72m97ds7md3cpvqfqc";
     };
 
     installPhase = ''
