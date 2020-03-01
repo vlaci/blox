@@ -15,15 +15,20 @@ let
         text = mkOption {
           apply = svc:
             if parentConfig.blox.profiles.yubikey.pamU2f.enable then
-              builtins.readFile (
-                pkgs.runCommand "pam-${name}-u2f"
-                  { inherit svc; passAsFile = [ "svc" ]; } ''
-                  ${./post-process-pam-service.sh} \
-                    $svcPath \
-                    $out \
-                    ${escapeShellArgs [ config.use2Factor config.u2fModuleArgs ]}
-                ''
-              )
+              # work-around that processing input through readFile-runCommand
+              # pair of commands removes contextual information
+              builtins.replaceStrings
+                [ "${parentConfig.system.build.pamEnvironment}" ]
+                [ "${parentConfig.system.build.pamEnvironment}" ]
+                (builtins.readFile (
+                  pkgs.runCommand "pam-${name}-u2f"
+                    { inherit svc; passAsFile = [ "svc" ]; } ''
+                    ${./post-process-pam-service.sh} \
+                      $svcPath \
+                      $out \
+                      ${escapeShellArgs [ config.use2Factor config.u2fModuleArgs ]}
+                  ''
+                ))
             else
               svc
             ;
