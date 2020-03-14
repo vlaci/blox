@@ -194,5 +194,7 @@ in {
       ignores = [
       ];
     };
+
+    services.lorri.enable = true;
   };
 }
