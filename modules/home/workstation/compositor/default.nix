@@ -12,8 +12,8 @@ in {
 
   config = mkIf (cfg.enable && cfg.compositor.enable) {
     home.packages = with pkgs; [
-      bloxpkgs.picom-tryone
+      bloxpkgs.compton-tryone
     ];
-    home.file.".config/picom.conf".source = ./picom.conf;
+    home.file.".config/compton.conf".source = ./compton.conf;
   };
 }
