@@ -35,6 +35,7 @@ in {
     };
   in {
     home.file.".emacs.d/init.el".text = ''
+      (setq phpactor-install-directory "${pkgs.bloxpkgs.phpPackages.phpactor}/share/php/composer-phpactor/")
       (load "default.el")
     '';
     home.packages = with pkgs; [
