@@ -54,5 +54,7 @@ in {
     home.packages = with pkgs; [
       fzf
     ];
+
+    services.lorri.enable = true;
   };
 }
