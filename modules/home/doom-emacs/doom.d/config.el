@@ -14,3 +14,8 @@
   "Disable current theme before loading new one."
   (mapcar #'disable-theme custom-enabled-themes))
 (advice-add 'load-theme :before #'load-theme--disable-old-theme)
+
+
+(after! org-mode
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate))
