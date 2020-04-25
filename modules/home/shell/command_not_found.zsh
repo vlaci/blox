@@ -22,7 +22,7 @@ __try () {
         for p in "${CANDIDATES[@]}"; do
             printf "  %s\n" "$p"
         done
-        printf "Run the folllowing command to select from them:\n  try %s\n" "$@"
+        printf "Run the folllowing command to select from them:\n  try %s\n" "$*"
         return 127
     fi
 
