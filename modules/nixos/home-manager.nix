@@ -1,8 +1,8 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, lib, pkgs, inputs, ... }: with lib;
 
 {
   imports = [
-    <home-manager/nixos>
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   options.blox.home-manager.config = mkOption {
@@ -49,7 +49,7 @@
       recursiveUpdate
       {
         _module.args = {
-          inherit nixosConfig user;
+          inherit inputs nixosConfig user;
         };
 
         imports = nixosConfig.blox.home-manager.config ++ [

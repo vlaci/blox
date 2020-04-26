@@ -1,4 +1,4 @@
-{ config, lib, options, pkgs, ... }: with lib;
+{ config, lib, options, pkgs, inputs, ... }: with lib;
 
 {
   nixpkgs.config = mkOverride 100 {
@@ -11,9 +11,10 @@
       callPackage = pkgs.newScope super;
       pkgs = super;
       bloxpkgs = import ../../pkgs { inherit pkgs; };
-      mozilla = import <mozilla/package-set.nix> { inherit pkgs; };
-      unstable = import <nixos-unstable> {
+      mozilla = import "${inputs.nixpkgs-mozilla}/package-set.nix" { inherit pkgs; };
+      unstable = import inputs.nixos-unstable {
         config = config.nixpkgs.config;
+        system = inputs.system;
         # do not apply overlays recursively as it would introduce infinite recursion
         overlays = [];
       };
