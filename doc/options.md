@@ -277,11 +277,39 @@ Users with sane defaults
 *Type:* `list or attribute set of attribute sets`
 
 
-*Default:* `[]`
+*Default:* `{'root': {'isNormalUser': False}}`
 
 *Declared by:*
 
 > **[`<modules/nixos/users.nix>`](../modules/nixos/users.nix)**  
+
+*Valid in:* nixos
+
+### security.pam.services
+
+This option has no description.
+
+*Type:* `list or attribute set of submodules`
+
+
+
+*Declared by:*
+
+> **[`<modules/nixos/yubikey/default.nix>`](../modules/nixos/yubikey/default.nix)**  
+
+*Valid in:* nixos
+
+### security.pam.services.<name?>.text
+
+This option has no description.
+
+*Type:* `unspecified`
+
+
+
+*Declared by:*
+
+> **[`<modules/nixos/yubikey/default.nix>`](../modules/nixos/yubikey/default.nix)**  
 
 *Valid in:* nixos
 
@@ -403,14 +431,27 @@ Cursor theme package
 
 *Valid in:* nixos
 
-### users.users.<name?>.home-config
+### users.users
 
-Extra home manager configuration to be defined inline
+This option has no description.
 
-*Type:* `attribute set`
+*Type:* `list or attribute set of submodules`
 
 
-*Default:* `{}`
+
+*Declared by:*
+
+> **[`<modules/nixos/users.nix>`](../modules/nixos/users.nix)**  
+
+*Valid in:* nixos
+
+### users.users.<name?>.extraGroups
+
+This option has no description.
+
+*Type:* `unspecified`
+
+
 
 *Declared by:*
 
@@ -626,7 +667,7 @@ Directory containing customizations, `init.el`, `config.el` and `packages.el`
 *Type:* `unspecified`
 
 
-*Default:* `"/nix/store/990d2crzaa9kzcdpaz1v3vss7v1lisil-doom.d"`
+*Default:* `"/nix/store/7mzl4waz3jmayx88fimgcg24jnvjwdsy-doom.d"`
 
 *Declared by:*
 
@@ -679,6 +720,21 @@ Extra packages to install
 
 *Valid in:* home-manager
 
+### blox.profiles.gpg.enable
+
+Whether to enable GPG with sane defaults.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/gpg.nix>`](../modules/home/gpg.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.keepass.enable
 
 Whether to enable KeePass with plugins.
@@ -691,6 +747,21 @@ Whether to enable KeePass with plugins.
 *Declared by:*
 
 > **[`<modules/home/keepass.nix>`](../modules/home/keepass.nix)**  
+
+*Valid in:* home-manager
+
+### blox.profiles.pass.enable
+
+Whether to enable Pass with plugins.
+
+*Type:* `boolean`
+
+
+*Default:* `false`
+
+*Declared by:*
+
+> **[`<modules/home/pass.nix>`](../modules/home/pass.nix)**  
 
 *Valid in:* home-manager
 
