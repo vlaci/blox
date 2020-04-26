@@ -25,7 +25,7 @@ in {
       programs.tmux = {
         enable = true;
         terminal = "screen-256color";
-        extraTmuxConf = ''
+        extraConfig = ''
           ${optionalString cfg.zsh.enable "set-option -g default-shell ${pkgs.zsh}/bin/zsh"}
 
           # True color support
@@ -64,22 +64,15 @@ in {
           bind C-n next-window
 
           ########################### Theme related options
-          # Status update interval
           set -g status-interval 10
-
-          # Basic status bar colors
-          set -g status-bg black
-          set -g status-fg cyan
-
+          set -g status-style bg=black,fg=cyan
           # Left side of status bar
-          set -g status-left-bg black
-          set -g status-left-fg green
+          set -g status-left-style bg=black,fg=green
           set -g status-left-length 40
           set -g status-left "#S #[fg=white]» #[fg=yellow]#I #[fg=cyan]#P"
 
           # Right side of status bar
-          set -g status-right-bg black
-          set -g status-right-fg cyan
+          set -g status-right-style bg=black,fg=cyan
           set -g status-right-length 40
           set -g status-right "#H #[fg=white]« #[fg=yellow]%H:%M #[fg=green]%d-%b-%y"
 
@@ -88,12 +81,10 @@ in {
           set -g window-status-current-format " #I:#W#F "
 
           # Current window status
-          set -g window-status-current-bg red
-          set -g window-status-current-fg black
+          set -g window-status-current-style bg=red,fg=black
 
           # Window with activity status
-          set -g window-status-activity-bg yellow # fg and bg are flipped here due to a
-          set -g window-status-activity-fg black  # bug in tmux
+          set -g window-status-activity-style bg=yellow,fg=black
 
           # Window separator
           set -g window-status-separator ""
@@ -102,12 +93,10 @@ in {
           set -g status-justify centre
 
           # Pane border
-          set -g pane-border-bg default
-          set -g pane-border-fg default
+          set -g pane-border-style bg=default,fg=default
 
           # Active pane border
-          set -g pane-active-border-bg default
-          set -g pane-active-border-fg green
+          set -g pane-active-border-style bg=default,fg=green
 
           # Pane number indicator
           set -g display-panes-colour default
@@ -118,16 +107,13 @@ in {
           set -g clock-mode-style 24
 
           # Message
-          set -g message-bg default
-          set -g message-fg default
+          set -g message-style bg=default,fg=default
 
           # Command message
-          set -g message-command-bg default
-          set -g message-command-fg default
+          set -g message-command-style bg=default,fg=default
 
           # Mode
-          set -g mode-bg red
-          set -g mode-fg default
+          set -g mode-style bg=red,fg=default
         '';
       };
     })
