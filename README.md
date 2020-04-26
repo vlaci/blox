@@ -1,23 +1,38 @@
 # blox
 
-This repository contains the common parts of my NixOS and home-manager configuration organized as [NIxOS modules](https://nixos.org/nixos/manual/index.html#sec-writing-modules).
+This repository contains the common parts of my NixOS and home-manager
+configuration organized as [NIxOS
+modules](https://nixos.org/nixos/manual/index.html#sec-writing-modules).
 
 ## Rationale
 
-There are a couple of common configuration settings across my NixOS machines so I have decided to organize them in an independent repository
+There are a couple of common configuration settings across my NixOS machines so
+I have decided to organize them in an independent repository
 
 ## TL; DR
 
-1. Add this repository as a channel:
+This configuration is intended to use with the currently developed flake system.
 
-    ```sh
-    sudo nix-channel --add https://github.com/vlaci/blox/archive/master.tar.gz blox
-    sudo nix-channel --add https://github.com/rycee/home-manager/archive/release-18.09.tar.gz home-manager
-    sudo nix-channel --add https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz mozilla
-    sudo nix-channel --update blox home-manager mozilla
+1. Add an input to your configuration's `flake.nix`
+
+    ```nix
+    {
+      description = "vlaci's NixOS machines";
+      edition = 201909;
+
+      inputs.blox.url = "git:github.com/blox/flake";
+
+      outputs = { self, nixpkgs, blox }: {
+        nixosConfigurations.my-machine = blox.lib.mkNixosConfiguration {
+          modules = [
+            /path/to/configuration.nix
+          ];
+        };
+      };
+    }
     ```
 
-2. Edit your `configuration.nix` file to import `blox`
+1. Edit your `configuration.nix` file to import `blox`
 
     ```nix
     { pkgs, ... }:
@@ -27,7 +42,6 @@ There are a couple of common configuration settings across my NixOS machines so 
 
       imports = [
         ./hardware-configuration.nix
-         <blox>
       ];
 
       blox = {
@@ -44,11 +58,6 @@ There are a couple of common configuration settings across my NixOS machines so 
         users.users.vlaci = {
           isAdmin = true;
           initialHashedPassword = "....";
-          home-config.programs.git = {
-            enable = true;
-            userName = "László Vaskó";
-            userEmail = "vlaci@noreply.github.com";
-          };
         };
       };
 
@@ -62,32 +71,30 @@ There are a couple of common configuration settings across my NixOS machines so 
           ];
         }
       ;
+
+      home-manager.users.vlaci.programs.git = {
+        enable = true;
+        userName = "László Vaskó";
+        userEmail = "vlaci@noreply.github.com";
+      };
     }
     ```
 
-3. Rebuild NixOS
+1. Rebuild NixOS
 
-    ```sh
+    ```console
     $ sudo nixos-rebuild switch
-    building Nix...
     building the system configuration...
-    activating the configuration...
-    setting up /etc...
-    reloading user units for lightdm...
-    reloading user units for vlaci...
-    setting up tmpfiles
+    [119 built, 35 copied (404.4 MiB), 89.3 MiB DL]
     ```
 
-4. Profit
+1. Profit
 
 ## [Configuration Reference](./doc/options.md)
 
 The options can be viewed as man page too:
 
-```sh
+```console
 # if you have blox installed and `blox.blox.installDocs is enabled (the default):
 man 5 blox-configuration
-
-# otherwise:
-man -l $(nix-build "<blox/doc>" -A man --no-out-link)
 ```
