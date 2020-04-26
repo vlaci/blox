@@ -46,7 +46,6 @@
     makeHM = name: _user: let
       user = config.users.users.${name}; in
       ({config, options, pkgs, ...}:
-      recursiveUpdate
       {
         _module.args = {
           inherit inputs nixosConfig user;
@@ -62,7 +61,7 @@
             (attrNames nixosConfig.blox.profiles)
           ) (name: nixosConfig.blox.profiles.${name});
       }
-      user.home-config);
+      );
   in {
     home-manager.users = mapAttrs makeHM config.blox.users.users;
   };

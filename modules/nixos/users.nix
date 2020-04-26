@@ -36,11 +36,6 @@ in {
             groups;
         };
         isAdmin = mkEnableOption "sudo access";
-        home-config = mkOption {
-          description = "Extra home manager configuration to be defined inline";
-          type = types.attrs;
-          default = {};
-        };
       };
       config = {
         extraGroups = if config.isAdmin then ["wheel" ] else [];
