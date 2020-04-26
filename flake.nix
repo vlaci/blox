@@ -19,12 +19,17 @@
       url = "github:NixOS/nixos-hardware";
       flake = false;
     };
+
+    nix-doom-emacs = {
+      url = "/home/vlaci/git/github.com/vlaci/nix-doom-emacs";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: let
     mkNixosConfiguration = { modules, system ? "x86_64-linux" }: nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs.inputs = { inherit (inputs) nixos-unstable home-manager nixpkgs-mozilla nixos-hardware; inherit system; };
+      specialArgs.inputs = (builtins.removeAttrs inputs [ "self" ]) // { inherit system; };
       modules = [
         nixpkgs.nixosModules.notDetected
         ({ pkgs, ... }: {

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, lib, pkgs, inputs, ... }: with lib;
 
 let
   cfg = config.blox.profiles.doom-emacs;
@@ -27,9 +27,7 @@ in {
   };
 
   config = mkIf cfg.enable (let
-    emacs = pkgs.callPackage (builtins.fetchTarball {
-      url = https://github.com/vlaci/nix-doom-emacs/archive/develop.tar.gz;
-    }) {
+    emacs = pkgs.callPackage inputs.nix-doom-emacs {
       extraPackages = (epkgs: cfg.extraPackages);
       inherit (cfg) extraConfig doomPrivateDir;
     };

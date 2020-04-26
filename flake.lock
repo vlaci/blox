@@ -21,6 +21,24 @@
         "type": "github"
       }
     },
+    "nix-doom-emacs": {
+      "flake": false,
+      "info": {
+        "lastModified": 1587835941,
+        "narHash": "sha256-7er5mBMLSEWC5e/qcdYgume5/cIri1xx3lBL7ISZzYs=",
+        "revCount": 74
+      },
+      "locked": {
+        "ref": "develop",
+        "rev": "c7217357bb0a6f601e598a81fea30a93b2db0798",
+        "type": "git",
+        "url": "file:///home/vlaci/git/github.com/vlaci/nix-doom-emacs"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/vlaci/git/github.com/vlaci/nix-doom-emacs"
+      }
+    },
     "nixos-hardware": {
       "flake": false,
       "info": {
@@ -94,6 +112,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "nix-doom-emacs": "nix-doom-emacs",
         "nixos-hardware": "nixos-hardware",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs": "nixpkgs",
