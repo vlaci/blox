@@ -21,46 +21,6 @@ fe1 () {
   $EDITOR $(find . -name "$1" -print -quit)
 }
 
-autoload -U add-zle-hook-widget
-get-edit-mode () {
-    case "$CURRENT_KEYMAP" in
-      vi)
-        case $KEYMAP in
-          main)
-            printf $format "\e[5 q"  # line
-            ;;
-          vicmd|visual)
-            printf $format "\e[1 q"  # block
-        esac
-        ;;
-      *)
-        printf $format "\e[3 q"  # underline
-        ;;
-    esac
-}
-add-zle-hook-widget zle-keymap-select get-edit-mode
-add-zle-hook-widget zle-line-init get-edit-mode
-CURRENT_KEYMAP=emacs
-toggle-edit-mode() {
-    local ret=$?
-    case "$CURRENT_KEYMAP" in
-      emacs)
-        bindkey -v
-        CURRENT_KEYMAP=vi
-        ;;
-      vi)
-        bindkey -e
-        CURRENT_KEYMAP=emacs
-        ;;
-    esac
-    zle get-edit-mode
-    return $ret
-}; zle -N toggle-edit-mode
-bindkey -M emacs "^y" toggle-edit-mode
-bindkey -M viins "^y" toggle-edit-mode
-bindkey -M vicmd "^y" toggle-edit-mode
-bindkey -M visual "^y" toggle-edit-mode
-
 go-up () {
   cd ..
   zle reset-prompt
@@ -69,30 +29,6 @@ go-up () {
 bindkey '^[u' go-up
 zstyle -d ':completion:*:sudo:*' command-path
 bindkey '^R' history-incremental-search-backward
-
-() {
-    local NEWLINE=$'\n'
-    local FORMAT="%%S%172F%B%F{green}%b%f%%b%%s"
-    zstyle ':vcs_info:*' actionformats "${FORMAT}%F{yellow}|%F{red}%a%f ${NEWLINE}%m${NEWLINE} " "zsh: %r"
-    zstyle ':vcs_info:*' formats       "${FORMAT} "  "zsh: %r"
-    zstyle ':vcs_info:*' patch-format  "tip: %p (%n/%a)"
-}
-
-function virtual_env_prompt () {
-  REPLY=${VIRTUAL_ENV+%F{cyan}🐍 ${VIRTUAL_ENV:t}%f }
-}
-grml_theme_add_token virtual-env -f virtual_env_prompt
-
-function nix_shell () {
-  REPLY=${IN_NIX_SHELL+%B%F{green}${name/shell/ν}%f%b }
-}
-grml_theme_add_token nix-shell -f nix_shell
-
-grml_prompt_token_default[shell-level]="%(4L.+.)"
-
-grml_theme_add_token symbol '%B%(!.%F{red}❯.%F{cyan}❯)%f%b '
-zstyle ':prompt:grml:left:setup' items shell-level rc vcs nix-shell symbol
-zstyle ':prompt:grml:right:setup' items change-root virtual-env path
 
 CONFIGS="$HOME/.config/zsh/conf.d"
 if [ -d "$CONFIGS" ]; then

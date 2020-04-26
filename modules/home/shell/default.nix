@@ -42,9 +42,6 @@ in {
     home.file = {
       "${dotDir}/grml-zshrc".source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc";
       "${dotDir}/zshrc.local".source = ./zshrc.local;
-      ".config/zsh/conf.d/12-fzf.rc".text = ''
-        source ${pkgs.fzf}/share/fzf/completion.zsh
-      '';
       ".config/zsh/conf.d/try.rc".source = pkgs.substituteAll {
         src = ./command_not_found.zsh;
         inherit (builtins) currentSystem;
@@ -52,9 +49,11 @@ in {
       };
     };
     home.packages = with pkgs; [
-      fzf
+      bashInteractive  # to ensure bash with readline sujpport even if it isn't the default shell
     ];
 
+    programs.starship.enable = true;
+    programs.fzf.enable = true;
     services.lorri.enable = true;
   };
 }
