@@ -93,124 +93,108 @@ in {
     });
   };
 
-  imports = [
-    "${builtins.fetchGit {
-      url = "https://github.com/msteen/nixos-vsliveshare.git";
-      ref = "refs/heads/master";
-    }}/modules/vsliveshare/home.nix"
-  ];
+  config = with pkgs; {
+    home.packages = optionals cfg.c.enable [
+      cfg.c.ccls
+      gcc
+      lldb
+    ] ++ optionals cfg.python.enable ([
+      pipenv
+      python3Full
+    ] ++ (with python3Packages; [
+        jupyterlab
+        setuptools
+      ]) ++ (cfg.python.pyls python3Packages)
+    ) ++ optionals cfg.php.enable [
+      php
+      phpPackages.composer
+    ] ++ optionals cfg.rust.enable [
+      rustup
+    ]  ++ optionals cfg.tools.enable (
+      [
+        jq
+        ripgrep
+      ] ++ optionals config.blox.profiles.workstation.enable [
+        meld
+        bloxpkgs.unstable.vscode
+      ] ++ optionals config.blox.profiles.zsh.enable [
+        direnv
+      ]
+    );
 
-  config = mkMerge [
-    (mkIf cfg.tools.enable {
+    home.file = (optionalAttrs cfg.tools.enable {
+        ".config/zsh/conf.d/10-direnv.rc".text = ''
+          eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
+        '';
+      } // optionalAttrs config.blox.profiles.workstation.enable {
+        ".config/zsh/conf.d/10-vscode-env.rc".text = ''
+          if [[ ''${TERM_PROGRAM-} == vscode ]]; then
+              export EDITOR="code -r --wait"
+          fi
+        '';
+      });
 
-      services.vsliveshare = {
-        enable = true;
-        extensionsDir = "$HOME/.vscode/extensions";
+    programs.neovim = let
+      extraConfig = ''
+        let g:LanguageClient_serverCommands = {
+        \${optionalString cfg.c.enable " 'c': ['ccls'],"}
+        \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
+        \${optionalString cfg.python.enable " 'python': ['pyls'],"}
+        \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
+        \}
+      '' + (builtins.readFile ./init.vim);
+      plugins =
+        (with pkgs.bloxpkgs.vimPlugins; [
+          tender
+          yarp
+          ncm2
+          emmet
+          which-key
+        ]) ++ (with pkgs.bloxpkgs.unstable.vimPlugins; [
+          LanguageClient-neovim
+        ]) ++ (with pkgs.vimPlugins; [
+          neomake
+          vim-nix
+          vim-airline
+          vim-airline-themes
+          vim-toml
+          fzf-vim fzfWrapper
+          surround
+          fugitive
+        ]);
+      in (mkIf (cfg.enable || cfg.tools.enable) ({
+        enable = mkDefault true;
+      } // (
+        if hasAttr "extraConfig" options.programs.neovim then
+          # COMPAT: home-manager >= 19.09
+          { inherit extraConfig plugins; }
+        else
+          # COMPAT: home-manager < 19.09
+          { configure = {
+              customRC = extraConfig;
+              packages.myVimPackage.start = plugins;
+            };
+          }
+      )));
+
+    programs.git = {
+      aliases = {
+        lol = "log --graph --pretty=format:\\\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ae%Creset %s\\\"";
       };
-
-      services.lorri.enable = true;
-    })
-    (with pkgs; {
-      home.packages = optionals cfg.c.enable [
-        cfg.c.ccls
-        gcc
-        lldb_9
-      ] ++ optionals cfg.python.enable ([
-        pipenv
-        python3Full
-      ] ++ (with python3Packages; [
-          jupyterlab
-          setuptools
-        ]) ++ (cfg.python.pyls python3Packages)
-      ) ++ optionals cfg.php.enable [
-        php
-        phpPackages.composer
-      ] ++ optionals cfg.rust.enable [
-        rustup
-      ]  ++ optionals cfg.tools.enable (
-        [
-          jq
-          ripgrep
-        ] ++ optionals config.blox.profiles.workstation.enable [
-          meld
-          bloxpkgs.unstable.vscode
-        ] ++ optionals config.blox.profiles.zsh.enable [
-          direnv
-        ]
-      );
-
-      home.file = (optionalAttrs cfg.tools.enable {
-          ".config/zsh/conf.d/10-direnv.rc".text = ''
-            eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
-          '';
-        } // optionalAttrs config.blox.profiles.workstation.enable {
-          ".config/zsh/conf.d/10-vscode-env.rc".text = ''
-            if [[ ''${TERM_PROGRAM-} == vscode ]]; then
-                export EDITOR="code -r --wait"
-            fi
-          '';
-        });
-
-      programs.neovim = let
-        extraConfig = ''
-          let g:LanguageClient_serverCommands = {
-          \${optionalString cfg.c.enable " 'c': ['ccls'],"}
-          \${optionalString cfg.php.enable " 'php' : ['${php}/bin/php', '${cfg.php.php-language-server}/bin/php-language-server.php'],"}
-          \${optionalString cfg.python.enable " 'python': ['pyls'],"}
-          \${optionalString cfg.rust.enable " 'rust': ['${cfg.rust.rls}/bin/rls'],"}
-          \}
-        '' + (builtins.readFile ./init.vim);
-        plugins =
-          (with pkgs.bloxpkgs.vimPlugins; [
-            tender
-            yarp
-            ncm2
-            emmet
-            which-key
-          ]) ++ (with pkgs.bloxpkgs.unstable.vimPlugins; [
-            LanguageClient-neovim
-          ]) ++ (with pkgs.vimPlugins; [
-            neomake
-            vim-nix
-            vim-airline
-            vim-airline-themes
-            vim-toml
-            fzf-vim fzfWrapper
-            surround
-            fugitive
-          ]);
-        in (mkIf (cfg.enable || cfg.tools.enable) ({
-          enable = mkDefault true;
-        } // (
-          if hasAttr "extraConfig" options.programs.neovim then
-            # COMPAT: home-manager >= 19.09
-            { inherit extraConfig plugins; }
-          else
-            # COMPAT: home-manager < 19.09
-            { configure = {
-                customRC = extraConfig;
-                packages.myVimPackage.start = plugins;
-              };
-            }
-        )));
-
-      programs.git = {
-        aliases = {
-          lol = "log --graph --pretty=format:\\\"%C(yellow)%h%Creset%C(cyan)%C(bold)%d%Creset %C(cyan)(%cr)%Creset %C(green)%ae%Creset %s\\\"";
-        };
-        extraConfig = {
-          push.default = "upstream";
-          "protocol.keybase".allow = "always";
-          diff.tool = "kitty";
-          diff.guitool = "kitty.gui";
-          difftool.prompt = "false";
-          difftool.trustExitCode = "true";
-          "difftool \"kitty\"".cmd = "kitty +kitten diff $LOCAL $REMOTE";
-          "difftool \"kitty.gui\"".cmd = "kitty kitty +kitten diff $LOCAL $REMOTE";
-        };
-        ignores = [
-        ];
+      extraConfig = {
+        push.default = "upstream";
+        "protocol.keybase".allow = "always";
+        diff.tool = "kitty";
+        diff.guitool = "kitty.gui";
+        difftool.prompt = "false";
+        difftool.trustExitCode = "true";
+        "difftool \"kitty\"".cmd = "kitty +kitten diff $LOCAL $REMOTE";
+        "difftool \"kitty.gui\"".cmd = "kitty kitty +kitten diff $LOCAL $REMOTE";
       };
-    })
-  ];
+      ignores = [
+      ];
+    };
+
+    services.lorri.enable = true;
+  };
 }
