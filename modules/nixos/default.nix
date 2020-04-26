@@ -13,5 +13,6 @@
     ./sshd.nix
     ./users.nix
     ./overlays-compat.nix
+    ./sane-defaults.nix
   ];
 }
