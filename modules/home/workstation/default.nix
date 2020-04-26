@@ -33,12 +33,12 @@ in {
         xclip
         xsel
 
-        arc-theme
+        paper-gtk-theme
         material-design-icons
         paper-icon-theme
         redshift
+        firefox-bin
       ]) ++ (with pkgs.bloxpkgs; [
-        mozilla.latest.firefox-bin
       ]) ++ optionals cfg.light-locker.enable [ pkgs.lightlocker ];
       home.file = {
         ".config/rofi/config.rasi".source = ./config.rasi;
