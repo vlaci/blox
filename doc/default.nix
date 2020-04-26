@@ -2,26 +2,38 @@
 with pkgs.lib;
 
 let
-  systemOpts = (import <nixpkgs/nixos> {
-    configuration = {
-    imports = [
-      ../modules/nixos
-    ];
-    _module.check = false;
-    nixpkgs.config.allowBroken = true;
+  moduleArgs = {
+    imports = [{
+      _module.args = {
+        inherit pkgs;
+        nixosConfig = { };
+      };
+      _module.check = false;
+      nixpkgs.config.allowBroken = true;
+    }];
   };
+
+  systemOpts = (evalModules {
+    specialArgs.inputs.home-manager.nixosModules.home-manager = { };
+    modules = [
+      {
+        imports = [
+          ../modules/nixos
+        ];
+      }
+      moduleArgs
+    ];
   }).options;
 
-  homeOpts = (import <nixpkgs/nixos> {
-    configuration = {
-    imports = [
-      ../modules/home
+  homeOpts = (evalModules {
+    modules = [
+      {
+        imports = [
+          ../modules/home
+        ];
+      }
+      moduleArgs
     ];
-    _module.args = {
-      nixosConfig = {};
-    };
-    _module.check = false;
-  };
   }).options;
 
   normalize = options:
