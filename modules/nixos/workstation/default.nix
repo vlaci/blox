@@ -110,6 +110,8 @@ in {
 
     environment.variables.GIO_EXTRA_MODULES = [ "${pkgs.gvfs}/lib/gio/modules" ];
     environment.variables.SOUND_THEME_FREEDESKTOP = "${pkgs.sound-theme-freedesktop}";
+
+    services.autorandr.enable = true;
   } // (
     if (hasAttr "programs" options) then
       # COMPAT: NixOS >= 19.09
