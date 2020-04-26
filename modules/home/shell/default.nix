@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: with lib;
+{ config, lib, pkgs, system, ... }: with lib;
 
 let
   cfg = config.blox.profiles.zsh;
@@ -44,7 +44,7 @@ in {
       "${dotDir}/zshrc.local".source = ./zshrc.local;
       ".config/zsh/conf.d/try.rc".source = pkgs.substituteAll {
         src = ./command_not_found.zsh;
-        inherit (builtins) currentSystem;
+        inherit system;
         inherit (pkgs) sqlite;
       };
     };

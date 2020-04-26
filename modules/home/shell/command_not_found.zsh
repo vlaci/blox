@@ -4,7 +4,7 @@ __try () {
     local EXE
     EXE=$(printf "%q" "${1/sudo/$2}")
     local DB="/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite"
-    local QUERY="select package from Programs where system = \"@currentSystem@\" and name = \"$EXE\""
+    local QUERY="select package from Programs where system = \"@system@\" and name = \"$EXE\""
     local -a CANDIDATES
 
     CANDIDATES=(${(f)"$(@sqlite@/bin/sqlite3 $DB "$QUERY")"})
