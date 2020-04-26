@@ -34,7 +34,9 @@
         nixpkgs.nixosModules.notDetected
         ({ pkgs, ... }: {
           nix = {
-            package = pkgs.nixFlakes;
+            # should use stable after the fix for
+            # https://github.com/NixOS/nix/issues/3377 is avaiable there
+            package = pkgs.bloxpkgs.unstable.nixFlakes;
             extraOptions = ''
               experimental-features = nix-command flakes ca-references
             '';
