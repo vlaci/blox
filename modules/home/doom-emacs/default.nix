@@ -36,6 +36,12 @@ in {
       hunspell = pkgs.hunspellWithDicts cfg.spellCheckDictionaries;
       languages = lib.concatMapStringsSep "," (dct: dct.dictFileName) cfg.spellCheckDictionaries;
     in ''
+      ;; Pull from PRIMARY (same as middle mouse click)
+      (defun paste-primary-selection ()
+        (interactive)
+        (insert
+        (x-get-selection 'PRIMARY)))
+      (global-set-key (kbd "S-<insert>") 'paste-primary-selection)
       (setq ispell-program-name "${hunspell}/bin/hunspell"
             ispell-dictionary "${languages}")
       (after! ispell
