@@ -21,17 +21,33 @@ in {
       type = with types; listOf package;
       default = [];
     };
+    spellCheckDictionaries = mkOption {
+      description = "Use these dictionaries for spell-checking";
+      type = with types; listOf package;
+      default = [];
+    };
     package = mkOption {
       internal = true;
     };
   };
 
   config = mkIf cfg.enable (let
+    extraConfig = let
+      hunspell = pkgs.hunspellWithDicts cfg.spellCheckDictionaries;
+      languages = lib.concatMapStringsSep "," (dct: dct.dictFileName) cfg.spellCheckDictionaries;
+    in ''
+      (setq ispell-program-name "${hunspell}/bin/hunspell"
+            ispell-dictionary "${languages}")
+      (after! ispell
+        (ispell-set-spellchecker-params)
+        (ispell-hunspell-add-multi-dic ispell-dictionary))
+      ${cfg.extraConfig}
+    '';
     emacs = pkgs.callPackage (builtins.fetchTarball {
       url = https://github.com/vlaci/nix-doom-emacs/archive/develop.tar.gz;
     }) {
       extraPackages = (epkgs: cfg.extraPackages);
-      inherit (cfg) extraConfig doomPrivateDir;
+      inherit (cfg) doomPrivateDir; inherit extraConfig;
     };
   in {
     home.file.".emacs.d/init.el".text = ''

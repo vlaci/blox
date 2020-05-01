@@ -679,6 +679,21 @@ Extra packages to install
 
 *Valid in:* home-manager
 
+### blox.profiles.doom-emacs.spellCheckDictionaries
+
+Use these dictionaries for spell-checking
+
+*Type:* `list of packages`
+
+
+*Default:* `[]`
+
+*Declared by:*
+
+> **[`<modules/home/doom-emacs/default.nix>`](../modules/home/doom-emacs/default.nix)**  
+
+*Valid in:* home-manager
+
 ### blox.profiles.keepass.enable
 
 Whether to enable KeePass with plugins.
