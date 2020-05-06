@@ -50,6 +50,7 @@ in {
     home.file = {
       "${dotDir}/grml-zshrc".source = "${pkgs.grml-zsh-config}/etc/zsh/zshrc";
       "${dotDir}/zshrc.local".source = ./zshrc.local;
+      "${dotDir}/.p10k.zsh".source = ./p10k.zsh;
       ".config/zsh/conf.d/try.rc".source = pkgs.substituteAll {
         src = ./command_not_found.zsh;
         inherit system;
