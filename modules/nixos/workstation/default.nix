@@ -79,26 +79,21 @@ in {
       displayManager.lightdm =
       {
         enable = true;
-        greeters.gtk  = {
-          theme = {
-            package = pkgs.materia-theme;
-            name = "Materia";
-          };
-          cursor = {
+        greeters.enso = {
+          enable = mkDefault true;
+          blur = !(hasAttr "vm" config.system.build);
+          cursorTheme = {
             package = bloxpkgs.pixelfun;
             name = "pixelfun3";
           };
-          extraConfig = ''
-            hide-user-image = true
-          '';
-          indicators = [
-            "~host" "~spacer"
-            "~clock" "~spacer"
-            "~session"
-            "~language"
-            "~a11y"
-            "~power"
-          ];
+          theme = {
+            package = pkgs.materia-theme;
+            name = "Materia-dark";
+          };
+          iconTheme = {
+            package = pkgs.paper-icon-theme;
+            name = "Paper";
+          };
         };
       };
     };
