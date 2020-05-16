@@ -9,8 +9,8 @@ in {
     default = true;
   };
 
-  config = mkIf cfg.installDocs {
-    environment.systemPackages = let
+  config =
+    let
       doc = import ../../doc { inherit pkgs; };
       manpages = pkgs.runCommand "blox-manpages"
         { }
@@ -19,6 +19,7 @@ in {
           cp ${doc.man} $out/share/man/man5/blox-configuration.5
         ''
       ;
-    in [ manpages ];
+    in {
+    environment.systemPackages = optionals cfg.installDocs [ manpages ];
   };
 }
