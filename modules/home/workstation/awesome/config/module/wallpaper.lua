@@ -12,6 +12,15 @@ local function set_wallpaper(s)
             wallpaper = wallpaper(s)
         end
         gears.wallpaper.maximized(wallpaper, s)
+        awful.spawn.with_shell([[dbus-send \
+            --system \
+            --print-reply \
+            --dest=org.freedesktop.Accounts \
+            /org/freedesktop/Accounts/User$(id -u) \
+            org.freedesktop.DBus.Properties.Set \
+            string:org.freedesktop.DisplayManager.AccountsService \
+            string:BackgroundFile \
+            "variant:string:$(realpath ']] .. wallpaper .. [[')"]])
     end
 end
 
