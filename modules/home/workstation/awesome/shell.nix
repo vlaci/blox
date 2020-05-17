@@ -11,7 +11,7 @@ let
     X_PID=$!
     trap "kill $X_PID || true" EXIT
     sleep 1
-    ${pkgs.awesome}/bin/awesome -c config/rc.lua --search config ${makeSearchPath (filter (x: lib.isDerivation x) (lib.attrValues extensions))}
+    ${pkgs.bloxpkgs.latest.awesome}/bin/awesome -c config/rc.lua --search config ${makeSearchPath (filter (x: lib.isDerivation x) (lib.attrValues extensions))}
   '';
 
   extensions = callPackage ./extensions.nix { };

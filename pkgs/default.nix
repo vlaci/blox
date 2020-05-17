@@ -3,6 +3,7 @@
 let
   inherit (pkgs) callPackage;
 in {
+  latest.awesome        = callPackage ./awesome               { };
   latest.vscode         = callPackage ./vscode                { };
   compton-tryone        = callPackage ./compton-tryone        { };
   dropbox-with-fs-fix   = callPackage ./dropbox-with-fs-fix   { };
