@@ -35,13 +35,9 @@
     src = fetchFromGitHub {
       owner = "Drauthius";
       repo = "awesome-sharedtags";
-      rev = "a57996d1d5f0c080ccaa559bb5a9813fdbcd56f4";
-      sha256 = "0sjg0hiyk7vad59a7k8ghwd2p7rjx2wx4h5b64i9cv6idqcrvaa9";
+      rev = "32d878d0d12bcfd900f2c6a7516a1370e6ebb7d6";
+      sha256 = "0js6v2jmkczi3g8j7vbk9hsq5wfz96jnhi7ka5c1rqw22lmjmlrk";
     };
-
-    patches = [
-      ./0001-tags-allow-setting-icons-from-tag-definition.patch
-    ];
 
     installPhase = ''
       mkdir -p $out/share/lua/5.2
