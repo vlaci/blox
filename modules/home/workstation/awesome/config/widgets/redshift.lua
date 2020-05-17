@@ -30,7 +30,7 @@ local redshift_widget = wibox.widget{
     bottom = 4,
     left   = 2,
     right  = 2,
-    widget = wibox.layout.margin
+    widget = wibox.container.margin
 }
 
 lain.widget.contrib.redshift:attach(
