@@ -8,6 +8,16 @@ in {
   config = mkMerge [ {
       environment.systemPackages = with pkgs; [
         atool
+        bat
+        exa
+        diskus
+        du-dust
+        fd
+        hyperfine
+        sd
+        tokei
+        ytop
+        bloxpkgs.unstable.zenith
         mc
         ranger
         unzip

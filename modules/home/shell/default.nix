@@ -20,8 +20,6 @@ in {
       initExtra = ''
         # Do not remember commands that start with a whitespace
         setopt HIST_IGNORE_SPACE
-        # Correct spelling of all arguments in the command line
-        setopt CORRECT_ALL
 
         # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
         # Initialization code that may require console input (password prompts, [y/n]

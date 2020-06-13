@@ -20,4 +20,8 @@
   environment.variables = {
     EDITOR = "nvim";
   };
+
+  blox.home-manager.config = {
+    programs.jq.enable = true;
+  };
 }
