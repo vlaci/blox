@@ -78,7 +78,7 @@ in {
 
       displayManager.lightdm =
       {
-        enable = true;
+        enable = mkDefault true;
         greeters.enso = {
           enable = mkDefault true;
           blur = !(hasAttr "vm" config.system.build);
