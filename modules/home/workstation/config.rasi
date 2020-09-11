@@ -51,13 +51,13 @@ configuration {
 /*	theme: ;*/
 /*	plugin-path: "/usr/lib/rofi";*/
 /*	pid: "/run/user/1000/rofi.pid";*/
-	display-window: "";
+	display-window: "󰖲";
 /*	display-windowcd: ;*/
-	display-run: "";
+	display-run: "󰞷";
 /*	display-ssh: ;*/
-	display-drun: "";
+	display-drun: "󰌧";
 /*	display-combi: ;*/
-	display-keys: "⌨";
+	display-keys: "󰌌";
 /*	kb-primary-paste: "Control+V,Shift+Insert";*/
 /*	kb-secondary-paste: "Control+v,Insert";*/
 /*	kb-clear-line: "Control+w";*/
