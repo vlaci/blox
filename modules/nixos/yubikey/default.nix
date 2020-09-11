@@ -83,8 +83,6 @@ in
       yubikey-personalization-gui
     ];
 
-    hardware.u2f.enable = true;
-
     services.pcscd.enable = true;
     services.udev.packages = with pkgs; [
       yubikey-personalization
