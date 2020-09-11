@@ -37,9 +37,9 @@ lain.widget.contrib.redshift:attach(
     redshift_widget,
     function (active)
         if active then
-            redshift_text:set_markup(markup(beautiful.bg_normal, ""))
+            redshift_text:set_markup(markup(beautiful.bg_normal, markup.font("Material Design Icons 8", "󰌵")))
         else
-            redshift_text:set_markup(markup(beautiful.fg_normal, ""))
+            redshift_text:set_markup(markup(beautiful.fg_normal, markup.font("Material Design Icons 8", "󰌶")))
         end
         redshift_cb.checked = active
     end

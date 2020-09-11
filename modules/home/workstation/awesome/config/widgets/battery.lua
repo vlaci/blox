@@ -24,43 +24,43 @@ local batstatus = lain.widget.bat({
         local baticon = (function()
             if bat_now.status == "Charging" then
                 if bat_now.perc > 95 then
-                    return ""
+                    return "󰂅"
                 elseif bat_now.perc > 85 then
-                    return ""
+                    return "󰂋"
                 elseif bat_now.perc > 70 then
-                    return ""
+                    return "󰂊"
                 elseif bat_now.perc > 60 then
-                    return ""
+                    return "󰂉"
                 elseif bat_now.perc > 50 then
-                    return ""
+                    return "󰂈"
                 elseif bat_now.perc > 35 then
-                    return ""
+                    return "󰂇"
                 elseif bat_now.perc > 15 then
-                    return ""
+                    return "󰂆"
                 else
-                    return markup.fg("red", "")
+                    return markup.fg("red", "󰢜")
                 end
             else
                 if bat_now.perc > 95 then
-                    return ""
+                    return "󰁹"
                 elseif bat_now.perc > 85 then
-                    return ""
+                    return "󰂂"
                 elseif bat_now.perc > 75 then
-                    return ""
+                    return "󰂁"
                 elseif bat_now.perc > 65 then
-                    return ""
+                    return "󰂀"
                 elseif bat_now.perc > 55 then
-                    return ""
+                    return "󰁿"
                 elseif bat_now.perc > 45 then
-                    return ""
+                    return "󰁾"
                 elseif bat_now.perc > 35 then
-                    return ""
+                    return "󰁽"
                 elseif bat_now.perc > 25 then
-                    return ""
+                    return "󰁼"
                 elseif bat_now.perc > 15 then
-                    return ""
+                    return "󰁻"
                 else
-                    return markup.fg("red", "")
+                    return markup.fg("red", "󰁺")
                 end
             end
         end)()

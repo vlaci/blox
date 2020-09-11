@@ -23,7 +23,7 @@ local batstatus = lain.widget.fs({
         widget:set_markup(
             markup.fg.color(color, "/") .. ": " .. root_avail_p .. "% | " ..
             markup.fg.color(color, "/home") .. ": " .. home_avail_p .. "%" ..
-            markup.font("Material Design Icons 12", "")
+            markup.font("Material Design Icons 12", "󰋊")
         )
     end
 })

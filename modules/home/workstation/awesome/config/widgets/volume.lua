@@ -9,18 +9,20 @@ local tooltip = "N/A"
 local volume = lain.widget.pulse({
     settings = function()
         local markup = lain.util.markup
-        local icon = "N/A"
+
         local vol = tonumber(volume_now.left)
         if volume_now.muted == "yes" then
-            icon = ""
+            icon = "󰝟"
+        elseif vol == nil then
+            icon = "󰕿!"
         elseif vol > 100 then
-            icon = markup.fg("orange", "")
+            icon = markup.fg("orange", "󰕾")
         elseif vol > 67 then
-            icon = ""
+            icon = "󰕾"
         elseif vol > 33 then
-            icon = ""
+            icon = "󰖀"
         else
-            icon = ""
+            icon = "󰕿"
         end
         widget:set_markup(markup.font("Material Design Icons 12", icon))
 
