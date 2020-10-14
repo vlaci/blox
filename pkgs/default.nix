@@ -11,4 +11,5 @@ in {
   pixelfun              = callPackage ./pixelfun              { };
   vimPlugins            = callPackage ./vimPlugins            { };
   phpPackages           = callPackage ./phpPackages           { };
+  nodePackages          = callPackage ./nodePackages          { };
 }
