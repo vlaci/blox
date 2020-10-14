@@ -1,41 +1,9 @@
 # This file originates from composer2nix
 
-{ stdenv, writeTextFile, fetchurl, php, unzip }:
+{ stdenv, writeTextFile, fetchurl, php, unzip, phpPackages }:
 
-rec {
-  composer = stdenv.mkDerivation {
-    name = "composer-1.6.5";
-    src = fetchurl {
-      url = https://github.com/composer/composer/releases/download/1.6.5/composer.phar;
-      sha256 = "07xkpg9y1dd4s33y3cbf7r5fphpgc39mpm066a8m9y4ffsf539f0";
-    };
-    buildInputs = [ php ];
-
-    # We must wrap the composer.phar because of the impure shebang.
-    # We cannot use patchShebangs because the executable verifies its own integrity and will detect that somebody has tampered with it.
-
-    buildCommand = ''
-      # Copy phar file
-      mkdir -p $out/share/php
-      cp $src $out/share/php/composer.phar
-      chmod 755 $out/share/php/composer.phar
-
-      # Create wrapper executable
-      mkdir -p $out/bin
-      cat > $out/bin/composer <<EOF
-      #! ${stdenv.shell} -e
-      exec ${php}/bin/php $out/share/php/composer.phar "\$@"
-      EOF
-      chmod +x $out/bin/composer
-    '';
-    meta = {
-      description = "Dependency Manager for PHP";
-      #license = stdenv.licenses.mit;
-      maintainers = [ stdenv.lib.maintainers.sander ];
-      platforms = stdenv.lib.platforms.unix;
-    };
-  };
-
+let
+  inherit (phpPackages) composer;
   buildZipPackage = { name, src }:
     stdenv.mkDerivation {
       inherit name src;
@@ -166,7 +134,7 @@ rec {
 
       extraArgs = removeAttrs args [ "name" "packages" "devPackages" "buildInputs" ];
     in
-    stdenv.lib.makeOverridable stdenv.mkDerivation ({
+    stdenv.mkDerivation ({
       name = "composer-${name}";
       buildInputs = [ php composer ] ++ buildInputs;
 
@@ -262,4 +230,9 @@ rec {
         runHook postInstall
     '';
   } // extraArgs);
+in
+{
+  composer = stdenv.lib.makeOverridable composer;
+  buildZipPackage = stdenv.lib.makeOverridable buildZipPackage;
+  buildPackage = stdenv.lib.makeOverridable buildPackage;
 }

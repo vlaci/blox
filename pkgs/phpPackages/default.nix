@@ -6,7 +6,7 @@
   composer2nix = (import (fetchFromGitHub {
     owner = "svanderburg";
     repo = "composer2nix";
-    rev = "v0.0.3";
-    sha256 = "1xa4qrknzz74fxqqihh7san56sq2wiy39n282zrid8zm4y2yl4s6";
-  }) { inherit system; pkgs = (pkgs.extend (se: su: { php = se.php72; })); noDev = true; }).override { executable = true; };
+    rev = "v0.0.4";
+    sha256 = "0q0x3in43ss1p0drhc5lp5bnp2jqni1i7zxm7lmjl5aad9nkn3gf";
+  }) { inherit system pkgs; noDev = true; }).override { executable = true; };
 }
